@@ -7,13 +7,22 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4053640D1B06668300CD9980 /* AvailabilityManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4053640C1B06668300CD9980 /* AvailabilityManager.swift */; };
 		405D2E751B014FB200798DB1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 405D2E741B014FB200798DB1 /* AppDelegate.swift */; };
-		405D2E771B014FB200798DB1 /* MasterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 405D2E761B014FB200798DB1 /* MasterViewController.swift */; };
+		405D2E771B014FB200798DB1 /* NodesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 405D2E761B014FB200798DB1 /* NodesViewController.swift */; };
 		405D2E791B014FB200798DB1 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 405D2E781B014FB200798DB1 /* DetailViewController.swift */; };
 		405D2E7C1B014FB200798DB1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 405D2E7A1B014FB200798DB1 /* Main.storyboard */; };
 		405D2E7E1B014FB200798DB1 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 405D2E7D1B014FB200798DB1 /* Images.xcassets */; };
 		405D2E811B014FB200798DB1 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 405D2E7F1B014FB200798DB1 /* LaunchScreen.xib */; };
 		405D2E8D1B014FB200798DB1 /* AvailabilityDashboardTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 405D2E8C1B014FB200798DB1 /* AvailabilityDashboardTests.swift */; };
+		40AEA61A1B0BE7AB007A1140 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 40AEA6191B0BE7AB007A1140 /* Settings.bundle */; };
+		40F381211B029D7A00E10B8E /* EnvironmentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40F381201B029D7A00E10B8E /* EnvironmentViewController.swift */; };
+		40F381231B03EA1E00E10B8E /* ServicesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40F381221B03EA1E00E10B8E /* ServicesViewController.swift */; };
+		40F3812F1B03F15900E10B8E /* AvailabilityDashboardModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 40F3812D1B03F15900E10B8E /* AvailabilityDashboardModel.xcdatamodeld */; };
+		40F381501B05407E00E10B8E /* Environment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40F3814F1B05407E00E10B8E /* Environment.swift */; };
+		40F381521B05407E00E10B8E /* Node.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40F381511B05407E00E10B8E /* Node.swift */; };
+		40F381541B05407E00E10B8E /* Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40F381531B05407E00E10B8E /* Service.swift */; };
+		99303F0B22D500132B96D613 /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 74672FB90E2E96829724D817 /* Pods.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -27,10 +36,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		06203B5F50376F2984B9AD3C /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
+		4053640C1B06668300CD9980 /* AvailabilityManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AvailabilityManager.swift; sourceTree = "<group>"; };
 		405D2E6F1B014FB200798DB1 /* AvailabilityDashboard.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AvailabilityDashboard.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		405D2E731B014FB200798DB1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		405D2E741B014FB200798DB1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		405D2E761B014FB200798DB1 /* MasterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MasterViewController.swift; sourceTree = "<group>"; };
+		405D2E761B014FB200798DB1 /* NodesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NodesViewController.swift; sourceTree = "<group>"; };
 		405D2E781B014FB200798DB1 /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		405D2E7B1B014FB200798DB1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		405D2E7D1B014FB200798DB1 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
@@ -38,6 +49,15 @@
 		405D2E861B014FB200798DB1 /* AvailabilityDashboardTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AvailabilityDashboardTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		405D2E8B1B014FB200798DB1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		405D2E8C1B014FB200798DB1 /* AvailabilityDashboardTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvailabilityDashboardTests.swift; sourceTree = "<group>"; };
+		40AEA6191B0BE7AB007A1140 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
+		40F381201B029D7A00E10B8E /* EnvironmentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnvironmentViewController.swift; sourceTree = "<group>"; };
+		40F381221B03EA1E00E10B8E /* ServicesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServicesViewController.swift; sourceTree = "<group>"; };
+		40F3812E1B03F15900E10B8E /* AvailabilityDashboardModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = AvailabilityDashboardModel.xcdatamodel; sourceTree = "<group>"; };
+		40F3814F1B05407E00E10B8E /* Environment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Environment.swift; sourceTree = "<group>"; };
+		40F381511B05407E00E10B8E /* Node.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Node.swift; sourceTree = "<group>"; };
+		40F381531B05407E00E10B8E /* Service.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Service.swift; sourceTree = "<group>"; };
+		74672FB90E2E96829724D817 /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		CCD6BB0F837A0EE0983ECA2C /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -45,6 +65,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				99303F0B22D500132B96D613 /* Pods.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -58,12 +79,30 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3B1DBC7E246DFDE81CE435DB /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				74672FB90E2E96829724D817 /* Pods.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		4053640B1B06665A00CD9980 /* business */ = {
+			isa = PBXGroup;
+			children = (
+				4053640C1B06668300CD9980 /* AvailabilityManager.swift */,
+			);
+			name = business;
+			sourceTree = "<group>";
+		};
 		405D2E661B014FB200798DB1 = {
 			isa = PBXGroup;
 			children = (
 				405D2E711B014FB200798DB1 /* AvailabilityDashboard */,
 				405D2E891B014FB200798DB1 /* AvailabilityDashboardTests */,
 				405D2E701B014FB200798DB1 /* Products */,
+				9F7F27792E3251153EA136F3 /* Pods */,
+				3B1DBC7E246DFDE81CE435DB /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -79,13 +118,19 @@
 		405D2E711B014FB200798DB1 /* AvailabilityDashboard */ = {
 			isa = PBXGroup;
 			children = (
+				4053640B1B06665A00CD9980 /* business */,
+				40F3812D1B03F15900E10B8E /* AvailabilityDashboardModel.xcdatamodeld */,
+				40F381241B03EC7800E10B8E /* model */,
 				405D2E741B014FB200798DB1 /* AppDelegate.swift */,
-				405D2E761B014FB200798DB1 /* MasterViewController.swift */,
+				405D2E761B014FB200798DB1 /* NodesViewController.swift */,
 				405D2E781B014FB200798DB1 /* DetailViewController.swift */,
 				405D2E7A1B014FB200798DB1 /* Main.storyboard */,
 				405D2E7D1B014FB200798DB1 /* Images.xcassets */,
 				405D2E7F1B014FB200798DB1 /* LaunchScreen.xib */,
 				405D2E721B014FB200798DB1 /* Supporting Files */,
+				40F381201B029D7A00E10B8E /* EnvironmentViewController.swift */,
+				40F381221B03EA1E00E10B8E /* ServicesViewController.swift */,
+				40AEA6191B0BE7AB007A1140 /* Settings.bundle */,
 			);
 			path = AvailabilityDashboard;
 			sourceTree = "<group>";
@@ -115,6 +160,25 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		40F381241B03EC7800E10B8E /* model */ = {
+			isa = PBXGroup;
+			children = (
+				40F381531B05407E00E10B8E /* Service.swift */,
+				40F381511B05407E00E10B8E /* Node.swift */,
+				40F3814F1B05407E00E10B8E /* Environment.swift */,
+			);
+			name = model;
+			sourceTree = "<group>";
+		};
+		9F7F27792E3251153EA136F3 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				06203B5F50376F2984B9AD3C /* Pods.debug.xcconfig */,
+				CCD6BB0F837A0EE0983ECA2C /* Pods.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -122,9 +186,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 405D2E901B014FB200798DB1 /* Build configuration list for PBXNativeTarget "AvailabilityDashboard" */;
 			buildPhases = (
+				C2DDAD80959ADC79FCBEF42E /* Check Pods Manifest.lock */,
 				405D2E6B1B014FB200798DB1 /* Sources */,
 				405D2E6C1B014FB200798DB1 /* Frameworks */,
 				405D2E6D1B014FB200798DB1 /* Resources */,
+				0585A3A8AEE94100191CBAAE /* Embed Pods Frameworks */,
+				E333A47D223D4E1FE9BBEDEA /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -195,6 +262,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				40AEA61A1B0BE7AB007A1140 /* Settings.bundle in Resources */,
 				405D2E7C1B014FB200798DB1 /* Main.storyboard in Resources */,
 				405D2E811B014FB200798DB1 /* LaunchScreen.xib in Resources */,
 				405D2E7E1B014FB200798DB1 /* Images.xcassets in Resources */,
@@ -210,14 +278,69 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		0585A3A8AEE94100191CBAAE /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		C2DDAD80959ADC79FCBEF42E /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		E333A47D223D4E1FE9BBEDEA /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		405D2E6B1B014FB200798DB1 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				405D2E791B014FB200798DB1 /* DetailViewController.swift in Sources */,
-				405D2E771B014FB200798DB1 /* MasterViewController.swift in Sources */,
+				405D2E771B014FB200798DB1 /* NodesViewController.swift in Sources */,
+				40F3812F1B03F15900E10B8E /* AvailabilityDashboardModel.xcdatamodeld in Sources */,
+				40F381521B05407E00E10B8E /* Node.swift in Sources */,
+				40F381501B05407E00E10B8E /* Environment.swift in Sources */,
+				40F381541B05407E00E10B8E /* Service.swift in Sources */,
 				405D2E751B014FB200798DB1 /* AppDelegate.swift in Sources */,
+				40F381231B03EA1E00E10B8E /* ServicesViewController.swift in Sources */,
+				4053640D1B06668300CD9980 /* AvailabilityManager.swift in Sources */,
+				40F381211B029D7A00E10B8E /* EnvironmentViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -344,6 +467,7 @@
 		};
 		405D2E911B014FB200798DB1 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 06203B5F50376F2984B9AD3C /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = AvailabilityDashboard/Info.plist;
@@ -354,6 +478,7 @@
 		};
 		405D2E921B014FB200798DB1 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = CCD6BB0F837A0EE0983ECA2C /* Pods.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = AvailabilityDashboard/Info.plist;
@@ -415,6 +540,7 @@
 				405D2E921B014FB200798DB1 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		405D2E931B014FB200798DB1 /* Build configuration list for PBXNativeTarget "AvailabilityDashboardTests" */ = {
 			isa = XCConfigurationList;
@@ -423,8 +549,22 @@
 				405D2E951B014FB200798DB1 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		40F3812D1B03F15900E10B8E /* AvailabilityDashboardModel.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				40F3812E1B03F15900E10B8E /* AvailabilityDashboardModel.xcdatamodel */,
+			);
+			currentVersion = 40F3812E1B03F15900E10B8E /* AvailabilityDashboardModel.xcdatamodel */;
+			path = AvailabilityDashboardModel.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 405D2E671B014FB200798DB1 /* Project object */;
 }
