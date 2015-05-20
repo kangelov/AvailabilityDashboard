@@ -83,6 +83,13 @@ class EnvironmentViewController: UITableViewController, AvailabilityManagerDeleg
         return environments.count + 1
     }
     
+    override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        if indexPath.row == environments.count {
+            return 40
+        }
+        return 70
+    }
+    
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         var cell: UITableViewCell
         if indexPath.row == environments.count {

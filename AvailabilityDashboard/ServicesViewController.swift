@@ -55,6 +55,11 @@ class ServicesViewController: UITableViewController {
         return services.count
     }
     
+    override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        return 70
+    }
+    
+    
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let service = services[indexPath.row] as Service
         var cell: UITableViewCell

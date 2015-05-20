@@ -10,7 +10,7 @@
 			<key>AutocorrectionType</key>
 			<string>No</string>
 			<key>DefaultValue</key>
-			<string>http://localhost:8080/results.json</string>
+			<string>http://localhost:8080/result.json</string>
 			<key>IsSecure</key>
 			<false/>
 			<key>Key</key>

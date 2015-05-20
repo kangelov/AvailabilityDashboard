@@ -17,8 +17,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
     var availabilityManager : AvailabilityManager? = nil
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-        //let defaults = NSUserDefaults.standardUserDefaults()
-        //defaults.synchronize()
+        let defaults = NSUserDefaults.standardUserDefaults()
+        defaults.setValue("http://localhost:8080/results.json", forKey: "url")
+        defaults.synchronize()
         // Override point for customization after application launch.
         self.availabilityManager = AvailabilityManager(managedObjectContext: self.managedObjectContext!)
         let splitViewController = self.window!.rootViewController as! UISplitViewController
