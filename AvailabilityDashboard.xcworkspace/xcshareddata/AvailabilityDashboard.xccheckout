@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>7E5F0379-1B11-4D4F-ACCB-E552230FE4BF</string>
+	<key>IDESourceControlProjectName</key>
+	<string>AvailabilityDashboard</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>3FAB9F3F88F6AA12AFA878FE0207ED04D8FE8EEA</key>
+		<string>github.com:kangelov/AvailabilityDashboard.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>AvailabilityDashboard.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>3FAB9F3F88F6AA12AFA878FE0207ED04D8FE8EEA</key>
+		<string>..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>github.com:kangelov/AvailabilityDashboard.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>111</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>3FAB9F3F88F6AA12AFA878FE0207ED04D8FE8EEA</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>3FAB9F3F88F6AA12AFA878FE0207ED04D8FE8EEA</string>
+			<key>IDESourceControlWCCName</key>
+			<string>AvailabilityDashboard</string>
+		</dict>
+	</array>
+</dict>
+</plist>
