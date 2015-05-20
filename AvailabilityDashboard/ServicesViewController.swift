@@ -75,7 +75,6 @@ class ServicesViewController: UITableViewController {
         }
         
         cell.textLabel!.text = service.name
-        cell.detailTextLabel!.text = service.status
         return cell
         
     }

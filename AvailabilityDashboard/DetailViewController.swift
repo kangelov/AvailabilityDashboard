@@ -12,15 +12,15 @@ class DetailViewController: UIViewController {
 
     @IBOutlet var nodeTitleLabel: UINavigationItem!
     
-    @IBOutlet var webServiceNameText: UITextField!
-    
-    @IBOutlet var versionText: UITextField!
-    
-    @IBOutlet var statusText: UITextField!
-    
     @IBOutlet var statusBackgroundImage: UIImageView!
     
     @IBOutlet var pingResponseArea: UITextView!
+    
+    @IBOutlet var webServiceNameLabel: UILabel!
+    
+    @IBOutlet var versionLabel: UILabel!
+    
+    @IBOutlet var statusLabel: UILabel!
     
     var service: Service? {
         didSet {
@@ -39,9 +39,9 @@ class DetailViewController: UIViewController {
         if let node: Node = self.node {
             if let service: Service = self.service {
                 nodeTitleLabel?.title = node.name
-                webServiceNameText?.text = service.name
-                versionText?.text = node.version
-                statusText?.text = node.status
+                webServiceNameLabel?.text = service.name
+                versionLabel?.text = node.version
+                statusLabel?.text = node.status
                 pingResponseArea?.text = node.response
                 pingResponseArea?.font = UIFont(name: "Courier New", size: 17.0) //no idea why I can't set this with the UI Editor
                 switch (node.status) {
