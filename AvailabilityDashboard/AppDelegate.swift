@@ -10,7 +10,7 @@ import UIKit
 import CoreData
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDelegate, AvailabilityManagerDelegate {
 
     var window: UIWindow?
     
@@ -125,6 +125,31 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
             }
         }
     }
+    
+    //MARK: Background fetching
 
+    var completionHandler : ((UIBackgroundFetchResult) -> Void)?
+    
+    func application(application: UIApplication, performFetchWithCompletionHandler completionHandler: (UIBackgroundFetchResult) -> Void) {
+        //Do stuff
+        println("Background fetch started.")
+        self.completionHandler = completionHandler
+        self.availabilityManager?.forceRefreshAvailability(self)
+
+    }
+    
+    func refreshSuccess(manager: AvailabilityManager) {
+        self.completionHandler?(UIBackgroundFetchResult.NewData)
+        self.completionHandler = nil
+        let splitViewController = self.window!.rootViewController as! UISplitViewController
+        println("Background fetch ended with success.")
+    }
+    
+    func refreshError(error: NSError?) {
+        self.completionHandler?(UIBackgroundFetchResult.Failed)
+        self.completionHandler = nil
+        println("Background fetch ended with an error.")
+    }
+    
 }
 

@@ -11,11 +11,21 @@ import CoreData
 import Alamofire
 import SwiftyJSON
 
+let AvailabilityChangedNotification = "AvailabilityChangedNotification"
+
 class AvailabilityManager {
+    
+    
     
     let managedObjectContext : NSManagedObjectContext
 
     var json : JSON? = nil
+    
+    var lastFetchTime : NSDate? = nil {
+        didSet{
+            postDataChanged()
+        }
+    }
     
     init(managedObjectContext : NSManagedObjectContext) {
         self.managedObjectContext = managedObjectContext
@@ -42,11 +52,13 @@ class AvailabilityManager {
                     NSLog("REQUEST: \(req)")
                     NSLog("RESPONSE: \(res)")
                     self.json = nil
+                    self.lastFetchTime = NSDate()
                     delegate?.refreshError(error)
                 }
                 else {
                     NSLog("Success: \(json)")
                     self.json = JSON(json!)
+                    self.lastFetchTime = NSDate()
                     delegate?.refreshSuccess(self)
                 }
         }
@@ -112,6 +124,15 @@ class AvailabilityManager {
             }
         }
         return nil
+    }
+    
+    func getLastFetchTime() -> NSDate? {
+        return self.lastFetchTime
+    }
+    
+    func postDataChanged() {
+        let center = NSNotificationCenter.defaultCenter()
+        center.postNotificationName(AvailabilityChangedNotification, object: self)
     }
     
 }
