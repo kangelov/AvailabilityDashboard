@@ -119,7 +119,15 @@
                         </constraints>
                     </view>
                     <toolbarItems/>
-                    <navigationItem key="navigationItem" title="Service" id="mOI-FS-AaM"/>
+                    <navigationItem key="navigationItem" title="Service" id="mOI-FS-AaM">
+                        <barButtonItem key="rightBarButtonItem" image="Logo" id="bPe-DT-uGP" userLabel="Logo Button">
+                            <inset key="imageInsets" minX="10" minY="10" maxX="10" maxY="10"/>
+                            <color key="tintColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                            <connections>
+                                <action selector="logoButtonAction:" destination="JEX-9P-axG" id="rnr-Jm-LNQ"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="nodeTitleLabel" destination="mOI-FS-AaM" id="6MP-6e-DIa"/>
                         <outlet property="pingResponseArea" destination="Tpb-W1-2dE" id="I0V-Os-MM5"/>
@@ -285,6 +293,13 @@
                     </tableView>
                     <navigationItem key="navigationItem" title="Nodes" id="Zdf-7t-Un8">
                         <barButtonItem key="backBarButtonItem" title="Nodes" id="vfk-tp-u4X"/>
+                        <barButtonItem key="rightBarButtonItem" image="Logo" id="Pjv-qJ-CJB" userLabel="Logo Button">
+                            <inset key="imageInsets" minX="10" minY="10" maxX="10" maxY="10"/>
+                            <color key="tintColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                            <connections>
+                                <action selector="logoButtonAction:" destination="7bK-jq-Zjz" id="X1v-ZQ-24T"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Rux-fX-hf1" sceneMemberID="firstResponder"/>
@@ -300,13 +315,6 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <gestureRecognizers/>
-                        <activityIndicatorView key="tableFooterView" hidden="YES" opaque="NO" contentMode="center" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="gray" id="W5R-xA-GBx">
-                            <rect key="frame" x="0.0" y="306" width="600" height="20"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <connections>
-                                <outletCollection property="gestureRecognizers" destination="Zvy-zQ-GQc" appends="YES" id="Qor-w4-3Ks"/>
-                            </connections>
-                        </activityIndicatorView>
                         <prototypes>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="OKEnvironmentItem" textLabel="mhb-51-EYh" imageView="6G5-vV-I6Z" style="IBUITableViewCellStyleDefault" id="POj-NC-X88">
                                 <autoresizingMask key="autoresizingMask"/>
@@ -432,12 +440,18 @@
                             <outletCollection property="gestureRecognizers" destination="RCv-lq-IfM" appends="YES" id="bb7-Xb-l9c"/>
                         </connections>
                     </tableView>
+                    <toolbarItems/>
                     <navigationItem key="navigationItem" title="Environments" id="nZX-g6-IiO">
                         <barButtonItem key="backBarButtonItem" title="Environments" id="46M-F1-Rxq"/>
+                        <barButtonItem key="rightBarButtonItem" image="Logo" id="X3b-aZ-LoH" userLabel="Logo Button">
+                            <inset key="imageInsets" minX="10" minY="10" maxX="10" maxY="10"/>
+                            <color key="tintColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                            <connections>
+                                <action selector="logoButtonAction:" destination="FxP-h3-f5B" id="DMv-LL-zPk"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
-                    <connections>
-                        <outlet property="spinner" destination="W5R-xA-GBx" id="dQl-A4-TFg"/>
-                    </connections>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="r2I-yp-dgJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <swipeGestureRecognizer direction="down" id="RCv-lq-IfM">
@@ -450,6 +464,7 @@
                         <action selector="handleRefresh:" destination="FxP-h3-f5B" id="oGv-AS-j16"/>
                     </connections>
                 </tapGestureRecognizer>
+                <navigationItem title="Title" id="aAq-mD-jUM"/>
             </objects>
             <point key="canvasLocation" x="862" y="-620"/>
         </scene>
@@ -550,6 +565,13 @@
                     </tableView>
                     <navigationItem key="navigationItem" title="Services" id="jeH-hE-aw6">
                         <barButtonItem key="backBarButtonItem" title="Services" id="SaV-z4-bAB"/>
+                        <barButtonItem key="rightBarButtonItem" image="Logo" id="71e-y4-s1i" userLabel="Logo Button">
+                            <inset key="imageInsets" minX="10" minY="10" maxX="10" maxY="10"/>
+                            <color key="tintColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                            <connections>
+                                <action selector="logoButtonAction:" destination="G2S-9Z-KRy" id="Spt-r1-DC3"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3PU-R9-MFU" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -574,6 +596,7 @@
     </scenes>
     <resources>
         <image name="Failed" width="96" height="96"/>
+        <image name="Logo" width="63" height="63"/>
         <image name="OK" width="96" height="96"/>
         <image name="Unknown" width="96" height="96"/>
         <image name="UnknownBG" width="163" height="163"/>

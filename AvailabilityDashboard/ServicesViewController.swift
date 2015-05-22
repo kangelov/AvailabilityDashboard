@@ -29,6 +29,10 @@ class ServicesViewController: UITableViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    @IBAction func logoButtonAction(sender: AnyObject) {
+        (UIApplication.sharedApplication()).openURL(NSURL(string: "http://www.qualicom.com")!)
+    }
+    
     // MARK: - Segues
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {

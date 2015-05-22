@@ -70,6 +70,8 @@ class DetailViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
 
-
+    @IBAction func logoButtonAction(sender: AnyObject) {
+        (UIApplication.sharedApplication()).openURL(NSURL(string: "http://www.qualicom.com")!)
+    }
 }
 

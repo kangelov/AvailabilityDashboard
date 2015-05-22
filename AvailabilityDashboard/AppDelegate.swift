@@ -135,13 +135,24 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
         println("Background fetch started.")
         self.completionHandler = completionHandler
         self.availabilityManager?.forceRefreshAvailability(self)
-
+    }
+    
+    func applicationDidFinishLaunching(application: UIApplication) {
+        application.setMinimumBackgroundFetchInterval(600)
     }
     
     func refreshSuccess(manager: AvailabilityManager) {
         self.completionHandler?(UIBackgroundFetchResult.NewData)
         self.completionHandler = nil
         let splitViewController = self.window!.rootViewController as! UISplitViewController
+        
+        let alarm = UILocalNotification()
+        alarm.fireDate = NSDate()
+        alarm.timeZone = NSTimeZone.systemTimeZone()
+        alarm.alertBody = "New statuses received!"
+        alarm.alertAction = "Launch application"
+        alarm.soundName = UILocalNotificationDefaultSoundName
+
         println("Background fetch ended with success.")
     }
     

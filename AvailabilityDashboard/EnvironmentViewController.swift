@@ -19,6 +19,10 @@ class EnvironmentViewController: UITableViewController, AvailabilityManagerDeleg
     
     @IBOutlet var spinner: UIActivityIndicatorView!
     
+    @IBAction func logoButtonAction(sender: AnyObject) {
+        (UIApplication.sharedApplication()).openURL(NSURL(string: "http://www.qualicom.com")!)
+    }
+    
     func refreshSuccess(manager: AvailabilityManager) {
         if let envList = manager.getEnvironmentList() {
             environments = envList
