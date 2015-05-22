@@ -144,8 +144,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
     }
     
     func refreshSuccess(manager: AvailabilityManager) {
-        self.completionHandler?(UIBackgroundFetchResult.NewData)
-        self.completionHandler = nil
         let splitViewController = self.window!.rootViewController as! UISplitViewController
         
         let alarm = UILocalNotification()
@@ -154,6 +152,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
         alarm.soundName = UILocalNotificationDefaultSoundName
         UIApplication.sharedApplication().presentLocalNotificationNow(alarm)
         
+        self.completionHandler?(UIBackgroundFetchResult.NewData)
+        self.completionHandler = nil
         println("Background fetch ended with success.")
     }
     
