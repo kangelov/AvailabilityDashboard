@@ -17,6 +17,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
     var availabilityManager : AvailabilityManager? = nil
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
+        UIApplication.sharedApplication().registerUserNotificationSettings(UIUserNotificationSettings(forTypes: UIUserNotificationType.Alert | UIUserNotificationType.Sound, categories: nil))
+        
         // Override point for customization after application launch.
         self.availabilityManager = AvailabilityManager(managedObjectContext: self.managedObjectContext!)
         let splitViewController = self.window!.rootViewController as! UISplitViewController
@@ -138,7 +140,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
     }
     
     func applicationDidFinishLaunching(application: UIApplication) {
-        application.setMinimumBackgroundFetchInterval(600)
+        application.setMinimumBackgroundFetchInterval(60)
     }
     
     func refreshSuccess(manager: AvailabilityManager) {
@@ -147,12 +149,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
         let splitViewController = self.window!.rootViewController as! UISplitViewController
         
         let alarm = UILocalNotification()
-        alarm.fireDate = NSDate()
-        alarm.timeZone = NSTimeZone.systemTimeZone()
         alarm.alertBody = "New statuses received!"
         alarm.alertAction = "Launch application"
         alarm.soundName = UILocalNotificationDefaultSoundName
-
+        UIApplication.sharedApplication().presentLocalNotificationNow(alarm)
+        
         println("Background fetch ended with success.")
     }
     
