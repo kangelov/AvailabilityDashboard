@@ -47,9 +47,6 @@ class EnvironmentViewController: UITableViewController, AvailabilityManagerDeleg
     override func viewDidLoad() {
         let center = NSNotificationCenter.defaultCenter()
         center.addObserver(self, selector: "availabilityChanged:", name: AvailabilityChangedNotification, object: nil)
-    }
-    
-    override func viewDidAppear(animated: Bool) {
         if (environments.isEmpty) {
             spinner?.hidden = false
             if let availabilityManager = (UIApplication.sharedApplication().delegate as! AppDelegate).availabilityManager {

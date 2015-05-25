@@ -52,7 +52,6 @@ class AvailabilityManager {
                     NSLog("REQUEST: \(req)")
                     NSLog("RESPONSE: \(res)")
                     self.json = nil
-                    self.lastFetchTime = NSDate()
                     delegate?.refreshError(error)
                 }
                 else {
