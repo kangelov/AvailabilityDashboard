@@ -423,21 +423,14 @@
                                         </label>
                                     </subviews>
                                     <gestureRecognizers/>
-                                    <connections>
-                                        <outletCollection property="gestureRecognizers" destination="Zvy-zQ-GQc" appends="YES" id="IRc-HN-9pZ"/>
-                                    </connections>
                                 </tableViewCellContentView>
                                 <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                 <color key="tintColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                                <connections>
-                                    <outletCollection property="gestureRecognizers" destination="Zvy-zQ-GQc" appends="YES" id="87w-Ui-78Q"/>
-                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
                             <outlet property="dataSource" destination="FxP-h3-f5B" id="K6W-dd-Q64"/>
                             <outlet property="delegate" destination="FxP-h3-f5B" id="kPi-Er-oAJ"/>
-                            <outletCollection property="gestureRecognizers" destination="RCv-lq-IfM" appends="YES" id="bb7-Xb-l9c"/>
                         </connections>
                     </tableView>
                     <toolbarItems/>
@@ -454,16 +447,6 @@
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="r2I-yp-dgJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <swipeGestureRecognizer direction="down" id="RCv-lq-IfM">
-                    <connections>
-                        <action selector="handleRefresh:" destination="FxP-h3-f5B" id="3CT-He-Yit"/>
-                    </connections>
-                </swipeGestureRecognizer>
-                <tapGestureRecognizer id="Zvy-zQ-GQc">
-                    <connections>
-                        <action selector="handleRefresh:" destination="FxP-h3-f5B" id="oGv-AS-j16"/>
-                    </connections>
-                </tapGestureRecognizer>
                 <navigationItem title="Title" id="aAq-mD-jUM"/>
             </objects>
             <point key="canvasLocation" x="862" y="-620"/>

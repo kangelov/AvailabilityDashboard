@@ -18,6 +18,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         UIApplication.sharedApplication().registerUserNotificationSettings(UIUserNotificationSettings(forTypes: UIUserNotificationType.Alert | UIUserNotificationType.Sound, categories: nil))
+        UIApplication.sharedApplication().registerForRemoteNotifications()
         
         // Override point for customization after application launch.
         self.availabilityManager = AvailabilityManager(managedObjectContext: self.managedObjectContext!)
@@ -161,6 +162,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
         self.completionHandler?(UIBackgroundFetchResult.Failed)
         self.completionHandler = nil
         println("Background fetch ended with an error.")
+    }
+    
+    func application(application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: NSData) {
+        println("My device token is \(deviceToken)")
+    }
+    
+    func application(application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: NSError) {
+        println("Failed to get a device token with error \(error)")
     }
     
 }

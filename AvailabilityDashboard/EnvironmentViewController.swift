@@ -17,8 +17,6 @@ class EnvironmentViewController: UITableViewController, AvailabilityManagerDeleg
     var lastUpdate: NSDate?
     var lastFetchDate: NSDate?
     
-    @IBOutlet var spinner: UIActivityIndicatorView!
-    
     @IBAction func logoButtonAction(sender: AnyObject) {
         (UIApplication.sharedApplication()).openURL(NSURL(string: "http://www.qualicom.com")!)
     }
@@ -35,11 +33,11 @@ class EnvironmentViewController: UITableViewController, AvailabilityManagerDeleg
         if let lastFetchDate = manager.getLastFetchTime() {
             self.lastFetchDate = lastFetchDate
         }
-        spinner?.hidden = true
+        self.refreshControl?.endRefreshing()
     }
     
     func refreshError(error: NSError?) {
-        spinner?.hidden = true
+        self.refreshControl?.endRefreshing()
         var alert: UIAlertView = UIAlertView(title: "Error Fetching Availability Data", message: error?.localizedDescription, delegate: nil, cancelButtonTitle: "Dismiss")
         alert.show()
     }
@@ -47,8 +45,13 @@ class EnvironmentViewController: UITableViewController, AvailabilityManagerDeleg
     override func viewDidLoad() {
         let center = NSNotificationCenter.defaultCenter()
         center.addObserver(self, selector: "availabilityChanged:", name: AvailabilityChangedNotification, object: nil)
+
+        self.refreshControl = UIRefreshControl()
+        self.refreshControl?.backgroundColor = UIColor.groupTableViewBackgroundColor()
+//        self.refreshControl?.attributedTitle = NSAttributedString(string: getLastUpdateDate(self.lastUpdate))
+        self.refreshControl?.addTarget(self, action: "handleRefresh:", forControlEvents: UIControlEvents.ValueChanged)
+        
         if (environments.isEmpty) {
-            spinner?.hidden = false
             if let availabilityManager = (UIApplication.sharedApplication().delegate as! AppDelegate).availabilityManager {
                 availabilityManager.refreshAvailability(self)
             }
@@ -86,6 +89,19 @@ class EnvironmentViewController: UITableViewController, AvailabilityManagerDeleg
     // MARK: - Table View
     
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+        if environments.count == 0 {
+            let emptyTableMessage = UILabel(frame: CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height))
+            emptyTableMessage.text = "No data is available. Please pull down to refresh."
+            emptyTableMessage.textColor = UIColor.blackColor()
+            emptyTableMessage.textAlignment = NSTextAlignment.Center
+            emptyTableMessage.numberOfLines = 0
+            emptyTableMessage.font = UIFont(name: "Palatino-Italic", size: 20)
+            emptyTableMessage.sizeToFit()
+            tableView.backgroundView = emptyTableMessage
+            tableView.separatorStyle = UITableViewCellSeparatorStyle.None
+            return 0
+        }
+        tableView.separatorStyle = UITableViewCellSeparatorStyle.SingleLine
         return 1
     }
     
@@ -100,22 +116,32 @@ class EnvironmentViewController: UITableViewController, AvailabilityManagerDeleg
         return 70
     }
     
+    func getLastFetchDate(lastUpdate: NSDate?) -> String {
+        let dateFormatter = NSDateFormatter()
+        dateFormatter.setLocalizedDateFormatFromTemplate("yyyy-MM-dd HH:mm:ss zzz")
+        var lastFetchDate = "Last Fetch: "
+        if let lastFetch = self.lastFetchDate {
+            lastFetchDate += dateFormatter.stringFromDate(lastFetch)
+        }
+        return lastFetchDate
+    }
+
+    func getLastUpdateDate(lastUpdate: NSDate?) -> String {
+        let dateFormatter = NSDateFormatter()
+        dateFormatter.setLocalizedDateFormatFromTemplate("yyyy-MM-dd HH:mm:ss zzz")
+        var lastUpdateDate = "Data As Of: "
+        if let lastUpdate = self.lastUpdate {
+            lastUpdateDate += dateFormatter.stringFromDate(lastUpdate)
+        }
+        return lastUpdateDate
+    }
+    
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         var cell: UITableViewCell
         if indexPath.row == environments.count {
             cell = tableView.dequeueReusableCellWithIdentifier("Footer", forIndexPath: indexPath) as! UITableViewCell
-            let dateFormatter = NSDateFormatter()
-            dateFormatter.setLocalizedDateFormatFromTemplate("yyyy-MM-dd HH:mm:ss zzz")
-            var lastUpdateDate = "Data As Of: "
-            if let lastUpdate = self.lastUpdate {
-                lastUpdateDate += dateFormatter.stringFromDate(lastUpdate)
-            }
-            var lastFetchDate = "Last Fetch: "
-            if let lastFetch = self.lastFetchDate {
-                lastFetchDate += dateFormatter.stringFromDate(lastFetch)
-            }
-            cell.textLabel?.text = lastUpdateDate
-            cell.detailTextLabel?.text = lastFetchDate
+            cell.textLabel?.text = getLastUpdateDate(lastUpdate)
+            cell.detailTextLabel?.text = getLastFetchDate(lastFetchDate)
         } else {
             let env = environments[indexPath.row] as Environment
             switch env.status {
@@ -140,8 +166,7 @@ class EnvironmentViewController: UITableViewController, AvailabilityManagerDeleg
         return false
     }
 
-    @IBAction func handleRefresh(sender: AnyObject) {
-        spinner?.hidden = false
+    func handleRefresh(sender: AnyObject) {
         if let availabilityManager = (UIApplication.sharedApplication().delegate as! AppDelegate).availabilityManager {
             availabilityManager.forceRefreshAvailability(self)
         }
