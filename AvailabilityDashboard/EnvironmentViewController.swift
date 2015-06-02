@@ -106,13 +106,10 @@ class EnvironmentViewController: UITableViewController, AvailabilityManagerDeleg
     }
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return environments.count + 1
+        return environments.count
     }
     
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        if indexPath.row == environments.count {
-            return 50
-        }
         return 70
     }
     
@@ -138,11 +135,6 @@ class EnvironmentViewController: UITableViewController, AvailabilityManagerDeleg
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         var cell: UITableViewCell
-        if indexPath.row == environments.count {
-            cell = tableView.dequeueReusableCellWithIdentifier("Footer", forIndexPath: indexPath) as! UITableViewCell
-            cell.textLabel?.text = getLastUpdateDate(lastUpdate)
-            cell.detailTextLabel?.text = getLastFetchDate(lastFetchDate)
-        } else {
             let env = environments[indexPath.row] as Environment
             switch env.status {
             case "WRONG_VERSION":
@@ -156,7 +148,6 @@ class EnvironmentViewController: UITableViewController, AvailabilityManagerDeleg
             }
             cell.textLabel!.text = env.name
             //        cell.detailTextLabel!.text = env.status
-        }
         return cell
         
     }
@@ -164,6 +155,17 @@ class EnvironmentViewController: UITableViewController, AvailabilityManagerDeleg
     override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
         // Return false if you do not want the specified item to be editable.
         return false
+    }
+    
+    override func tableView(tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        var cell = tableView.dequeueReusableCellWithIdentifier("Footer") as! UITableViewCell
+        cell.textLabel?.text = getLastUpdateDate(lastUpdate)
+        cell.detailTextLabel?.text = getLastFetchDate(lastFetchDate)
+        return cell
+    }
+    
+    override func tableView(tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return 50
     }
 
     func handleRefresh(sender: AnyObject) {
