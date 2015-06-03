@@ -18,7 +18,7 @@ class AvailabilityManager {
     
     
     let managedObjectContext : NSManagedObjectContext
-
+    
     var json : JSON? = nil
     
     var lastFetchTime : NSDate? = nil {
@@ -44,22 +44,27 @@ class AvailabilityManager {
         let defaults = NSUserDefaults.standardUserDefaults()
         let url = defaults.stringForKey("url") as String!
         NSLog("About to call backend at \(url)")
-        NSURLCache.sharedURLCache().removeAllCachedResponses()
-        Alamofire.request(.GET, url, parameters: nil, encoding: .JSON)
-            .responseJSON { (req, res, json, error) in
-                if(error != nil) {
-                    NSLog("Error: \(error)")
-                    NSLog("REQUEST: \(req)")
-                    NSLog("RESPONSE: \(res)")
-                    self.json = nil
-                    delegate?.refreshError(error)
-                }
-                else {
-                    NSLog("Success: \(json)")
-                    self.json = JSON(json!)
-                    self.lastFetchTime = NSDate()
-                    delegate?.refreshSuccess(self)
-                }
+        if url != nil {
+            NSURLCache.sharedURLCache().removeAllCachedResponses()
+            Alamofire.request(.GET, url, parameters: nil, encoding: .JSON)
+                .responseJSON { (req, res, json, error) in
+                    if(error != nil) {
+                        NSLog("Error: \(error)")
+                        NSLog("REQUEST: \(req)")
+                        NSLog("RESPONSE: \(res)")
+                        self.json = nil
+                        delegate?.refreshError(error)
+                    }
+                    else {
+                        NSLog("Success: \(json)")
+                        self.json = JSON(json!)
+                        self.lastFetchTime = NSDate()
+                        delegate?.refreshSuccess(self)
+                    }
+            }
+        } else {
+            var error = NSError(domain: "Invalid source URL. Please go into Settings and configure a valid URL.", code: -1, userInfo: nil)
+            delegate?.refreshError(error);
         }
     }
     
