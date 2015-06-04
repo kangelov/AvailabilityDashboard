@@ -20,6 +20,7 @@ class EnvironmentViewController: UITableViewController, AvailabilityManagerDeleg
     @IBAction func logoButtonAction(sender: AnyObject) {
         (UIApplication.sharedApplication()).openURL(NSURL(string: "http://www.qualicom.com")!)
     }
+    @IBOutlet weak var statusBarButton: UIBarButtonItem!
     
     func refreshSuccess(manager: AvailabilityManager) {
         if let envList = manager.getEnvironmentList() {
@@ -34,10 +35,12 @@ class EnvironmentViewController: UITableViewController, AvailabilityManagerDeleg
             self.lastFetchDate = lastFetchDate
         }
         self.refreshControl?.endRefreshing()
+        updateStatusBarButton()
     }
     
     func refreshError(error: NSError?) {
         self.refreshControl?.endRefreshing()
+        updateStatusBarButton()
         var alert: UIAlertView = UIAlertView(title: "Error Fetching Availability Data", message: error?.localizedDescription, delegate: nil, cancelButtonTitle: "Dismiss")
         alert.show()
     }
@@ -48,7 +51,6 @@ class EnvironmentViewController: UITableViewController, AvailabilityManagerDeleg
 
         self.refreshControl = UIRefreshControl()
         self.refreshControl?.backgroundColor = UIColor.groupTableViewBackgroundColor()
-//        self.refreshControl?.attributedTitle = NSAttributedString(string: getLastUpdateDate(self.lastUpdate))
         self.refreshControl?.addTarget(self, action: "handleRefresh:", forControlEvents: UIControlEvents.ValueChanged)
         
         if (environments.isEmpty) {
@@ -156,17 +158,6 @@ class EnvironmentViewController: UITableViewController, AvailabilityManagerDeleg
         // Return false if you do not want the specified item to be editable.
         return false
     }
-    
-    override func tableView(tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-        var cell = tableView.dequeueReusableCellWithIdentifier("Footer") as! UITableViewCell
-        cell.textLabel?.text = getLastUpdateDate(lastUpdate)
-        cell.detailTextLabel?.text = getLastFetchDate(lastFetchDate)
-        return cell
-    }
-    
-    override func tableView(tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        return 50
-    }
 
     func handleRefresh(sender: AnyObject) {
         if let availabilityManager = (UIApplication.sharedApplication().delegate as! AppDelegate).availabilityManager {
@@ -178,6 +169,17 @@ class EnvironmentViewController: UITableViewController, AvailabilityManagerDeleg
         if let availabilityManager = notification.object as? AvailabilityManager {
             availabilityManager.refreshAvailability(self)
         }
+    }
+    
+    func updateStatusBarButton() {
+        let statusMessage = UILabel(frame: CGRectMake(0, 0, 300, 50))
+        statusMessage.text = self.getLastUpdateDate(self.lastUpdate) + "\n" + self.getLastFetchDate(self.lastFetchDate)
+        statusMessage.textColor = UIColor.blackColor()
+        statusMessage.textAlignment = NSTextAlignment.Center
+        statusMessage.numberOfLines = 2
+        statusMessage.font = UIFont(name: "Courier", size: 12)
+        statusMessage.sizeToFit()
+        self.statusBarButton.customView = statusMessage
     }
     
     deinit {
