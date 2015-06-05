@@ -15,28 +15,24 @@ class EnvironmentViewController: BaseController {
     
     var environments: [Environment] = []
     
-    override func refreshSuccess(manager: AvailabilityManager) {
-        if let envList = manager.getEnvironmentList() {
-            environments = envList
-            self.tableView.reloadData()
-            self.tableView.setNeedsDisplay()
-        }
-        if let lastUpdate = manager.getLastUpdateDate() {
-            self.lastUpdate = lastUpdate
-        }
-        if let lastFetchDate = manager.getLastFetchTime() {
-            self.lastFetchDate = lastFetchDate
-        }
-        self.refreshControl?.endRefreshing()
-        updateStatusBarButton()
-    }
+    var environment: Environment?
     
-    override func refreshError(error: NSError?) {
-        self.refreshControl?.endRefreshing()
-        updateStatusBarButton()
-        var alert: UIAlertView = UIAlertView(title: "Error Fetching Availability Data", message: error?.localizedDescription, delegate: nil, cancelButtonTitle: "Dismiss")
-        alert.show()
+    override func updateViewForRefresh(path: [BaseController], envList: [Environment]) {
+        self.environments = envList
+        if let selectedEnv = environment {
+            self.environment = nil
+            for env in envList {
+                if env.name == selectedEnv.name {
+                    self.environment = env
+                }
+            }
+            if self.environment == nil {
+                var alert: UIAlertView = UIAlertView(title: "Cannot refresh environments.", message: "Selected environment is no longer available.", delegate: nil, cancelButtonTitle: "Dismiss")
+                alert.show()
+            }
+        }
     }
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -47,6 +43,10 @@ class EnvironmentViewController: BaseController {
             }
         }
     }
+    
+    override func viewDidAppear(animated: Bool) {
+        self.environment = nil
+    }
 
     // MARK: - Segues
     
@@ -55,12 +55,19 @@ class EnvironmentViewController: BaseController {
             if let indexPath = self.tableView.indexPathForSelectedRow() {
                 let object = environments[indexPath.row] as Environment
                 let controller = segue.destinationViewController as! ServicesViewController
-                controller.services = []
-                for s in object.services {
-                    controller.services.append(s as! Service);
-                }
-                super.populateForSegue(controller)
+                self.environment = object
+                handleSelection(controller)
             }
+        }
+    }
+    
+    override func handleSelection(controller: BaseController) {
+        if let destController = controller as? ServicesViewController {
+            destController.services = []
+            for s in self.environment!.services {
+                destController.services.append(s as! Service);
+            }
+            super.populateForSegue(destController)
         }
     }
     
@@ -113,18 +120,6 @@ class EnvironmentViewController: BaseController {
     override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
         // Return false if you do not want the specified item to be editable.
         return false
-    }
-
-    func handleRefresh(sender: AnyObject) {
-        if let availabilityManager = (UIApplication.sharedApplication().delegate as! AppDelegate).availabilityManager {
-            availabilityManager.forceRefreshAvailability(self)
-        }
-    }
-    
-    func availabilityChanged(notification: NSNotification) {
-        if let availabilityManager = notification.object as? AvailabilityManager {
-            availabilityManager.refreshAvailability(self)
-        }
     }
     
 }

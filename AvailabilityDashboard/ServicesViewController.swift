@@ -15,8 +15,36 @@ class ServicesViewController: BaseController {
     
     var services: [Service] = []
     
+    var service: Service?
+    
+    override func updateViewForRefresh(path: [BaseController], envList: [Environment]) {
+        if let envController = path[0] as? EnvironmentViewController {
+            envController.updateViewForRefresh(path, envList: envList)
+            if let selectedEnv = envController.environment {
+                envController.handleSelection(self)
+                if let selectedService = self.service {
+                    self.service = nil
+                    for s in selectedEnv.services {
+                        if s.name == selectedService.name {
+                            self.service = s as! Service
+                        }
+                    }
+                    if self.service == nil {
+                        var alert: UIAlertView = UIAlertView(title: "Cannot refresh services.", message: "Selected service is no longer available.", delegate: nil, cancelButtonTitle: "Dismiss")
+                        alert.show()
+                    }
+                }
+            }
+        }
+    }
+    
     override func viewDidLoad() {
+        super.viewDidLoad()
         super.updateStatusBarButton()
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        self.service = nil
     }
     
     // MARK: - Segues
@@ -26,13 +54,20 @@ class ServicesViewController: BaseController {
             if let indexPath = self.tableView.indexPathForSelectedRow() {
                 let object = services[indexPath.row] as Service
                 let controller = segue.destinationViewController as! NodesViewController
-                controller.service = object
-                controller.nodes = []
-                for n in object.nodes {
-                    controller.nodes.append(n as! Node);
-                }
-                super.populateForSegue(controller)
+                self.service = object
+                handleSelection(controller)
             }
+        }
+    }
+    
+    override func handleSelection(controller: BaseController) {
+        if let destController = controller as? NodesViewController {
+            destController.nodes = []
+            destController.service = self.service
+            for n in self.service!.nodes {
+                destController.nodes.append(n as! Node);
+            }
+            super.populateForSegue(controller)
         }
     }
     

@@ -13,17 +13,39 @@ class BaseController: UITableViewController, AvailabilityManagerDelegate {
     @IBAction func logoButtonAction(sender: AnyObject) {
         (UIApplication.sharedApplication()).openURL(NSURL(string: "http://www.qualicom.com")!)
     }
-    @IBOutlet weak var statusBarButton: UIBarButtonItem!
+    @IBOutlet var statusBarButton: UIBarButtonItem!
 
+    var path: [BaseController] = []
+    
     var lastUpdate: NSDate?
     var lastFetchDate: NSDate?
     
+    func updateViewForRefresh(path: [BaseController], envList: [Environment]) {
+        //Override me for every controller
+    }
+    
     func refreshSuccess(manager: AvailabilityManager) {
-        preconditionFailure("This method must be overriden.")
+        if let envList = manager.getEnvironmentList() {
+            updateViewForRefresh(path, envList: envList)
+            self.tableView.reloadData()
+            self.tableView.setNeedsDisplay()
+        }
+
+        if let lastUpdate = manager.getLastUpdateDate() {
+            self.lastUpdate = lastUpdate
+        }
+        if let lastFetchDate = manager.getLastFetchTime() {
+            self.lastFetchDate = lastFetchDate
+        }
+        self.refreshControl?.endRefreshing()
+        updateStatusBarButton()
     }
     
     func refreshError(error: NSError?) {
-        preconditionFailure("This method must be overriden.")
+        self.refreshControl?.endRefreshing()
+        updateStatusBarButton()
+        var alert: UIAlertView = UIAlertView(title: "Error Fetching Availability Data", message: error?.localizedDescription, delegate: nil, cancelButtonTitle: "Dismiss")
+        alert.show()
     }
     
     override func viewDidLoad() {
@@ -37,6 +59,11 @@ class BaseController: UITableViewController, AvailabilityManagerDelegate {
     func populateForSegue(dest: BaseController) {
         dest.lastFetchDate = lastFetchDate
         dest.lastUpdate = lastUpdate
+        dest.path = self.path + [self]
+    }
+    
+    func handleSelection(destController: BaseController) {
+        assertionFailure("This method must be overriden or in-place refresh operation won't work.")
     }
     
     override func awakeFromNib() {
@@ -81,6 +108,18 @@ class BaseController: UITableViewController, AvailabilityManagerDelegate {
         statusMessage.font = UIFont(name: "Courier", size: 15)
         statusMessage.sizeToFit()
         self.statusBarButton.customView = statusMessage
+    }
+    
+    func handleRefresh(sender: AnyObject) {
+        if let availabilityManager = (UIApplication.sharedApplication().delegate as! AppDelegate).availabilityManager {
+            availabilityManager.forceRefreshAvailability(self)
+        }
+    }
+    
+    func availabilityChanged(notification: NSNotification) {
+        if let availabilityManager = notification.object as? AvailabilityManager {
+            availabilityManager.refreshAvailability(self)
+        }
     }
     
     deinit {
