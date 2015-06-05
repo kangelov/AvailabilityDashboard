@@ -296,6 +296,13 @@
                             <outlet property="delegate" destination="7bK-jq-Zjz" id="RA6-mI-bju"/>
                         </connections>
                     </tableView>
+                    <toolbarItems>
+                        <barButtonItem style="plain" systemItem="flexibleSpace" id="9Fa-Po-BPk"/>
+                        <barButtonItem title="No Data Loaded" style="plain" id="B8Q-ct-QNl">
+                            <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        </barButtonItem>
+                        <barButtonItem style="plain" systemItem="flexibleSpace" id="VEP-xt-SAW"/>
+                    </toolbarItems>
                     <navigationItem key="navigationItem" title="Nodes" id="Zdf-7t-Un8">
                         <barButtonItem key="backBarButtonItem" title="Nodes" id="vfk-tp-u4X"/>
                         <barButtonItem key="rightBarButtonItem" image="Logo" id="Pjv-qJ-CJB" userLabel="Logo Button">
@@ -306,6 +313,9 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="statusBarButton" destination="B8Q-ct-QNl" id="cYT-zx-qNk"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Rux-fX-hf1" sceneMemberID="firstResponder"/>
             </objects>
@@ -416,9 +426,11 @@
                         </connections>
                     </tableView>
                     <toolbarItems>
+                        <barButtonItem style="plain" systemItem="flexibleSpace" id="IjX-74-Hbg"/>
                         <barButtonItem title="No Data Loaded" style="plain" id="evd-cp-1J2">
                             <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         </barButtonItem>
+                        <barButtonItem style="plain" systemItem="flexibleSpace" id="Fax-bj-VfM"/>
                     </toolbarItems>
                     <navigationItem key="navigationItem" title="Environments" id="nZX-g6-IiO">
                         <barButtonItem key="backBarButtonItem" title="Environments" id="46M-F1-Rxq"/>
@@ -536,6 +548,13 @@
                             <outlet property="delegate" destination="G2S-9Z-KRy" id="M6h-wV-jpM"/>
                         </connections>
                     </tableView>
+                    <toolbarItems>
+                        <barButtonItem style="plain" systemItem="flexibleSpace" id="6Aw-8p-8kx"/>
+                        <barButtonItem title="No Data Loaded" style="plain" id="U6Q-nJ-BEn">
+                            <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        </barButtonItem>
+                        <barButtonItem style="plain" systemItem="flexibleSpace" id="IXh-4p-KiM"/>
+                    </toolbarItems>
                     <navigationItem key="navigationItem" title="Services" id="jeH-hE-aw6">
                         <barButtonItem key="backBarButtonItem" title="Services" id="SaV-z4-bAB"/>
                         <barButtonItem key="rightBarButtonItem" image="Logo" id="71e-y4-s1i" userLabel="Logo Button">
@@ -546,6 +565,9 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="statusBarButton" destination="U6Q-nJ-BEn" id="JNs-Yh-mjG"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3PU-R9-MFU" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

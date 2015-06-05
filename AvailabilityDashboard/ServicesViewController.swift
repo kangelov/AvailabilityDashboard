@@ -9,28 +9,14 @@
 import Foundation
 import UIKit
 
-class ServicesViewController: UITableViewController {
+class ServicesViewController: BaseController {
     
     var nodesViewController: NodesViewController? = nil
     
     var services: [Service] = []
     
-
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        if UIDevice.currentDevice().userInterfaceIdiom == .Pad {
-            self.clearsSelectionOnViewWillAppear = false
-            self.preferredContentSize = CGSize(width: 320.0, height: 600.0)
-        }
-    }
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
-    @IBAction func logoButtonAction(sender: AnyObject) {
-        (UIApplication.sharedApplication()).openURL(NSURL(string: "http://www.qualicom.com")!)
+    override func viewDidLoad() {
+        super.updateStatusBarButton()
     }
     
     // MARK: - Segues
@@ -45,6 +31,7 @@ class ServicesViewController: UITableViewController {
                 for n in object.nodes {
                     controller.nodes.append(n as! Node);
                 }
+                super.populateForSegue(controller)
             }
         }
     }

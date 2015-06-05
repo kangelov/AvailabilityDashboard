@@ -15,6 +15,7 @@
 		405D2E7E1B014FB200798DB1 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 405D2E7D1B014FB200798DB1 /* Images.xcassets */; };
 		405D2E811B014FB200798DB1 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 405D2E7F1B014FB200798DB1 /* LaunchScreen.xib */; };
 		405D2E8D1B014FB200798DB1 /* AvailabilityDashboardTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 405D2E8C1B014FB200798DB1 /* AvailabilityDashboardTests.swift */; };
+		40ACB9621B2242D4005C3E59 /* BaseController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40ACB9611B2242D4005C3E59 /* BaseController.swift */; };
 		40AEA61A1B0BE7AB007A1140 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 40AEA6191B0BE7AB007A1140 /* Settings.bundle */; };
 		40F381211B029D7A00E10B8E /* EnvironmentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40F381201B029D7A00E10B8E /* EnvironmentViewController.swift */; };
 		40F381231B03EA1E00E10B8E /* ServicesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40F381221B03EA1E00E10B8E /* ServicesViewController.swift */; };
@@ -49,6 +50,7 @@
 		405D2E861B014FB200798DB1 /* AvailabilityDashboardTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AvailabilityDashboardTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		405D2E8B1B014FB200798DB1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		405D2E8C1B014FB200798DB1 /* AvailabilityDashboardTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvailabilityDashboardTests.swift; sourceTree = "<group>"; };
+		40ACB9611B2242D4005C3E59 /* BaseController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseController.swift; sourceTree = "<group>"; };
 		40AEA6191B0BE7AB007A1140 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		40F381201B029D7A00E10B8E /* EnvironmentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnvironmentViewController.swift; sourceTree = "<group>"; };
 		40F381221B03EA1E00E10B8E /* ServicesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServicesViewController.swift; sourceTree = "<group>"; };
@@ -131,6 +133,7 @@
 				40F381201B029D7A00E10B8E /* EnvironmentViewController.swift */,
 				40F381221B03EA1E00E10B8E /* ServicesViewController.swift */,
 				40AEA6191B0BE7AB007A1140 /* Settings.bundle */,
+				40ACB9611B2242D4005C3E59 /* BaseController.swift */,
 			);
 			path = AvailabilityDashboard;
 			sourceTree = "<group>";
@@ -347,6 +350,7 @@
 				405D2E751B014FB200798DB1 /* AppDelegate.swift in Sources */,
 				40F381231B03EA1E00E10B8E /* ServicesViewController.swift in Sources */,
 				4053640D1B06668300CD9980 /* AvailabilityManager.swift in Sources */,
+				40ACB9621B2242D4005C3E59 /* BaseController.swift in Sources */,
 				40F381211B029D7A00E10B8E /* EnvironmentViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

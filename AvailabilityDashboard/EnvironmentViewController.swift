@@ -8,21 +8,14 @@
 
 import UIKit
 
-class EnvironmentViewController: UITableViewController, AvailabilityManagerDelegate {
+class EnvironmentViewController: BaseController {
     
     
     var serviceViewController: ServicesViewController? = nil
     
     var environments: [Environment] = []
-    var lastUpdate: NSDate?
-    var lastFetchDate: NSDate?
     
-    @IBAction func logoButtonAction(sender: AnyObject) {
-        (UIApplication.sharedApplication()).openURL(NSURL(string: "http://www.qualicom.com")!)
-    }
-    @IBOutlet weak var statusBarButton: UIBarButtonItem!
-    
-    func refreshSuccess(manager: AvailabilityManager) {
+    override func refreshSuccess(manager: AvailabilityManager) {
         if let envList = manager.getEnvironmentList() {
             environments = envList
             self.tableView.reloadData()
@@ -38,7 +31,7 @@ class EnvironmentViewController: UITableViewController, AvailabilityManagerDeleg
         updateStatusBarButton()
     }
     
-    func refreshError(error: NSError?) {
+    override func refreshError(error: NSError?) {
         self.refreshControl?.endRefreshing()
         updateStatusBarButton()
         var alert: UIAlertView = UIAlertView(title: "Error Fetching Availability Data", message: error?.localizedDescription, delegate: nil, cancelButtonTitle: "Dismiss")
@@ -46,12 +39,7 @@ class EnvironmentViewController: UITableViewController, AvailabilityManagerDeleg
     }
     
     override func viewDidLoad() {
-        let center = NSNotificationCenter.defaultCenter()
-        center.addObserver(self, selector: "availabilityChanged:", name: AvailabilityChangedNotification, object: nil)
-
-        self.refreshControl = UIRefreshControl()
-        self.refreshControl?.backgroundColor = UIColor.groupTableViewBackgroundColor()
-        self.refreshControl?.addTarget(self, action: "handleRefresh:", forControlEvents: UIControlEvents.ValueChanged)
+        super.viewDidLoad()
         
         if (environments.isEmpty) {
             if let availabilityManager = (UIApplication.sharedApplication().delegate as! AppDelegate).availabilityManager {
@@ -59,20 +47,7 @@ class EnvironmentViewController: UITableViewController, AvailabilityManagerDeleg
             }
         }
     }
-    
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        if UIDevice.currentDevice().userInterfaceIdiom == .Pad {
-            self.clearsSelectionOnViewWillAppear = false
-            self.preferredContentSize = CGSize(width: 320.0, height: 600.0)
-        }
-    }
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
+
     // MARK: - Segues
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
@@ -84,6 +59,7 @@ class EnvironmentViewController: UITableViewController, AvailabilityManagerDeleg
                 for s in object.services {
                     controller.services.append(s as! Service);
                 }
+                super.populateForSegue(controller)
             }
         }
     }
@@ -113,26 +89,6 @@ class EnvironmentViewController: UITableViewController, AvailabilityManagerDeleg
     
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         return 70
-    }
-    
-    func getLastFetchDate(lastUpdate: NSDate?) -> String {
-        let dateFormatter = NSDateFormatter()
-        dateFormatter.setLocalizedDateFormatFromTemplate("yyyy-MM-dd HH:mm:ss zzz")
-        var lastFetchDate = "Last Fetch: "
-        if let lastFetch = self.lastFetchDate {
-            lastFetchDate += dateFormatter.stringFromDate(lastFetch)
-        }
-        return lastFetchDate
-    }
-
-    func getLastUpdateDate(lastUpdate: NSDate?) -> String {
-        let dateFormatter = NSDateFormatter()
-        dateFormatter.setLocalizedDateFormatFromTemplate("yyyy-MM-dd HH:mm:ss zzz")
-        var lastUpdateDate = "Data As Of: "
-        if let lastUpdate = self.lastUpdate {
-            lastUpdateDate += dateFormatter.stringFromDate(lastUpdate)
-        }
-        return lastUpdateDate
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -169,21 +125,6 @@ class EnvironmentViewController: UITableViewController, AvailabilityManagerDeleg
         if let availabilityManager = notification.object as? AvailabilityManager {
             availabilityManager.refreshAvailability(self)
         }
-    }
-    
-    func updateStatusBarButton() {
-        let statusMessage = UILabel(frame: CGRectMake(0, 0, 300, 50))
-        statusMessage.text = self.getLastUpdateDate(self.lastUpdate) + "\n" + self.getLastFetchDate(self.lastFetchDate)
-        statusMessage.textColor = UIColor.blackColor()
-        statusMessage.textAlignment = NSTextAlignment.Center
-        statusMessage.numberOfLines = 2
-        statusMessage.font = UIFont(name: "Courier", size: 12)
-        statusMessage.sizeToFit()
-        self.statusBarButton.customView = statusMessage
-    }
-    
-    deinit {
-        NSNotificationCenter.defaultCenter().removeObserver(self)
     }
     
 }

@@ -8,30 +8,17 @@
 
 import UIKit
 
-class NodesViewController: UITableViewController {
+class NodesViewController: BaseController {
 
     var detailViewController: DetailViewController? = nil
 
     var service: Service?
     var nodes: [Node] = []
     
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        if UIDevice.currentDevice().userInterfaceIdiom == .Pad {
-            self.clearsSelectionOnViewWillAppear = false
-            self.preferredContentSize = CGSize(width: 320.0, height: 600.0)
-        }
+    override func viewDidLoad() {
+        super.updateStatusBarButton()
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-
-    @IBAction func logoButtonAction(sender: AnyObject) {
-        (UIApplication.sharedApplication()).openURL(NSURL(string: "http://www.qualicom.com")!)
-    }
-    
     // MARK: - Segues
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
