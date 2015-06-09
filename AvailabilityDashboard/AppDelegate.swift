@@ -158,7 +158,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
         println("Background fetch ended with success.")
     }
     
-    func refreshError(error: NSError?) {
+    func refreshError(manager: AvailabilityManager, error: NSError?) {
         self.completionHandler?(UIBackgroundFetchResult.Failed)
         self.completionHandler = nil
         println("Background fetch ended with an error.")

@@ -41,11 +41,22 @@ class BaseController: UITableViewController, AvailabilityManagerDelegate {
         updateStatusBarButton()
     }
     
-    func refreshError(error: NSError?) {
-        self.refreshControl?.endRefreshing()
-        updateStatusBarButton()
+    func refreshError(manager: AvailabilityManager, error: NSError?) {
         var alert: UIAlertView = UIAlertView(title: "Error Fetching Availability Data", message: error?.localizedDescription, delegate: nil, cancelButtonTitle: "Dismiss")
         alert.show()
+
+        if let envList = manager.getStoredEnvironmentList() {
+            if envList.count > 0 {
+                updateViewForRefresh(path, envList: envList)
+                self.tableView.reloadData()
+                self.tableView.setNeedsDisplay()
+                updateStatusBarButtonForError("Stored Response")
+            } else {
+                updateStatusBarButtonForError("No Data")
+            }
+        }
+
+        self.refreshControl?.endRefreshing()
     }
     
     override func viewDidLoad() {
@@ -109,6 +120,19 @@ class BaseController: UITableViewController, AvailabilityManagerDelegate {
         statusMessage.sizeToFit()
         self.statusBarButton.customView = statusMessage
     }
+    
+    func updateStatusBarButtonForError(message: String) {
+        let statusMessage = UILabel(frame: CGRectMake(0, 0, 300, 50))
+        statusMessage.text = message
+        statusMessage.textColor = UIColor.blackColor()
+        statusMessage.textAlignment = NSTextAlignment.Center
+        statusMessage.numberOfLines = 3
+        statusMessage.font = UIFont(name: "Courier", size: 15)
+        statusMessage.sizeToFit()
+        self.statusBarButton.customView = statusMessage
+    }
+    
+    
     
     func handleRefresh(sender: AnyObject) {
         if let availabilityManager = (UIApplication.sharedApplication().delegate as! AppDelegate).availabilityManager {

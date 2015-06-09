@@ -53,7 +53,7 @@ class AvailabilityManager {
                         NSLog("REQUEST: \(req)")
                         NSLog("RESPONSE: \(res)")
                         self.json = nil
-                        delegate?.refreshError(error)
+                        delegate?.refreshError(self, error: error)
                     }
                     else {
                         NSLog("Success: \(json)")
@@ -64,7 +64,7 @@ class AvailabilityManager {
             }
         } else {
             var error = NSError(domain: "Invalid source URL. Please go into Settings and configure a valid URL.", code: -1, userInfo: nil)
-            delegate?.refreshError(error);
+            delegate?.refreshError(self, error: error);
         }
     }
     
@@ -79,6 +79,12 @@ class AvailabilityManager {
         var environments : [Environment] = []
         for (key: String, subJSON: JSON) in self.json! {
             if (key == "environments") {
+                let request = NSFetchRequest(entityName: "Environment")
+                if let storedEnvironments = self.managedObjectContext.executeFetchRequest(request, error: nil) as? [Environment] {
+                    for env in storedEnvironments {
+                        self.managedObjectContext.deleteObject(env)
+                    }
+                }
                 //Need something to clear CoreStorage
                 for(env: String, envJSON: JSON) in subJSON {
                     let newenv = NSEntityDescription.insertNewObjectForEntityForName("Environment", inManagedObjectContext: self.managedObjectContext) as! Environment
@@ -88,9 +94,18 @@ class AvailabilityManager {
                     newenv.services = NSOrderedSet(array: getServiceList(envJSON))
                     environments.append(newenv)
                 }
+                self.managedObjectContext.save(nil)
             }
         }
         return environments
+    }
+    
+    func getStoredEnvironmentList() -> [Environment]? {
+        let request = NSFetchRequest(entityName: "Environment")
+        if let storedEnvironments = self.managedObjectContext.executeFetchRequest(request, error: nil) as? [Environment] {
+            return storedEnvironments
+        }
+        return nil
     }
     
     private func getServiceList(envJSON: JSON) -> [Service] {
@@ -145,6 +160,6 @@ protocol AvailabilityManagerDelegate {
     
     func refreshSuccess(manager: AvailabilityManager)
     
-    func refreshError(error: NSError?)
+    func refreshError(manager: AvailabilityManager, error: NSError?)
 
 }
