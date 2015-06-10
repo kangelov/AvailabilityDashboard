@@ -50,13 +50,18 @@ class BaseController: UITableViewController, AvailabilityManagerDelegate {
                 updateViewForRefresh(path, envList: envList)
                 self.tableView.reloadData()
                 self.tableView.setNeedsDisplay()
-                updateStatusBarButtonForError("Stored Response")
-            } else {
-                updateStatusBarButtonForError("No Data")
+            }
+
+            if let lastUpdate = manager.getStoredLastUpdateTime() {
+                self.lastUpdate = lastUpdate
+            }
+            if let lastFetchDate = manager.getStoredLastFetchTime() {
+                self.lastFetchDate = lastFetchDate
             }
         }
 
         self.refreshControl?.endRefreshing()
+        self.updateStatusBarForStoredResponseButton()
     }
     
     override func viewDidLoad() {
@@ -120,10 +125,10 @@ class BaseController: UITableViewController, AvailabilityManagerDelegate {
         statusMessage.sizeToFit()
         self.statusBarButton.customView = statusMessage
     }
-    
-    func updateStatusBarButtonForError(message: String) {
+
+    func updateStatusBarForStoredResponseButton() {
         let statusMessage = UILabel(frame: CGRectMake(0, 0, 300, 50))
-        statusMessage.text = message
+        statusMessage.text = self.getLastUpdateDate(self.lastUpdate) + "\n" + self.getLastFetchDate(self.lastFetchDate)
         statusMessage.textColor = UIColor.blackColor()
         statusMessage.textAlignment = NSTextAlignment.Center
         statusMessage.numberOfLines = 3
@@ -131,7 +136,6 @@ class BaseController: UITableViewController, AvailabilityManagerDelegate {
         statusMessage.sizeToFit()
         self.statusBarButton.customView = statusMessage
     }
-    
     
     
     func handleRefresh(sender: AnyObject) {

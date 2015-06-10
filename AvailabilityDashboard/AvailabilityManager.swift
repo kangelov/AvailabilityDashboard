@@ -56,7 +56,7 @@ class AvailabilityManager {
                         delegate?.refreshError(self, error: error)
                     }
                     else {
-                        NSLog("Success: \(json)")
+                        //NSLog("Success: \(json)")
                         self.json = JSON(json!)
                         self.lastFetchTime = NSDate()
                         delegate?.refreshSuccess(self)
@@ -79,10 +79,18 @@ class AvailabilityManager {
         var environments : [Environment] = []
         for (key: String, subJSON: JSON) in self.json! {
             if (key == "environments") {
+                //Clear stale environments
                 let request = NSFetchRequest(entityName: "Environment")
                 if let storedEnvironments = self.managedObjectContext.executeFetchRequest(request, error: nil) as? [Environment] {
                     for env in storedEnvironments {
                         self.managedObjectContext.deleteObject(env)
+                    }
+                }
+                //Clear stale metadata
+                let metadataRequest = NSFetchRequest(entityName: "Metadata")
+                if let metadata = self.managedObjectContext.executeFetchRequest(request, error:nil) as? [Metadata] {
+                    for m in metadata {
+                        self.managedObjectContext.deleteObject(m)
                     }
                 }
                 //Need something to clear CoreStorage
@@ -94,6 +102,9 @@ class AvailabilityManager {
                     newenv.services = NSOrderedSet(array: getServiceList(envJSON))
                     environments.append(newenv)
                 }
+                let metadata = NSEntityDescription.insertNewObjectForEntityForName("Metadata", inManagedObjectContext: self.managedObjectContext) as! Metadata
+                metadata.lastFetchTime = self.lastFetchTime!
+                metadata.lastUpdateTime = getLastUpdateDate()!
                 self.managedObjectContext.save(nil)
             }
         }
@@ -104,6 +115,26 @@ class AvailabilityManager {
         let request = NSFetchRequest(entityName: "Environment")
         if let storedEnvironments = self.managedObjectContext.executeFetchRequest(request, error: nil) as? [Environment] {
             return storedEnvironments
+        }
+        return nil
+    }
+    
+    func getStoredLastUpdateTime() -> NSDate? {
+        let request = NSFetchRequest(entityName: "Metadata")
+        if let storedMetadata = self.managedObjectContext.executeFetchRequest(request, error: nil) as? [Metadata] {
+            if (storedMetadata.count == 1) {
+                return storedMetadata[0].lastUpdateTime
+            }
+        }
+        return nil
+    }
+
+    func getStoredLastFetchTime() -> NSDate? {
+        let request = NSFetchRequest(entityName: "Metadata")
+        if let storedMetadata = self.managedObjectContext.executeFetchRequest(request, error: nil) as? [Metadata] {
+            if (storedMetadata.count == 1) {
+                return storedMetadata[0].lastFetchTime
+            }
         }
         return nil
     }

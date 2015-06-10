@@ -1,5 +1,5 @@
 //
-//  Environment.swift
+//  Metadata.swift
 //  AvailabilityDashboard
 //
 //  Created by Kamen Angelov on 2015-06-10.
@@ -9,10 +9,9 @@
 import Foundation
 import CoreData
 
-class Environment: NSManagedObject {
+class Metadata: NSManagedObject {
 
-    @NSManaged var name: String
-    @NSManaged var status: String
-    @NSManaged var services: NSOrderedSet
+    @NSManaged var lastFetchTime: NSDate
+    @NSManaged var lastUpdateTime: NSDate
 
 }

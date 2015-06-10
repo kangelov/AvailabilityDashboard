@@ -18,6 +18,7 @@ class ServicesViewController: BaseController {
     var service: Service?
     
     override func updateViewForRefresh(path: [BaseController], envList: [Environment]) {
+        println("ServicesViewController.updateViewForRefresh")
         if let envController = path[0] as? EnvironmentViewController {
             envController.updateViewForRefresh(path, envList: envList)
             if let selectedEnv = envController.environment {
@@ -39,6 +40,7 @@ class ServicesViewController: BaseController {
     }
     
     override func viewDidLoad() {
+        println("ServicesViewController.viewDidLoad")
         super.viewDidLoad()
         super.updateStatusBarButton()
     }

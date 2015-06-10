@@ -18,6 +18,7 @@ class EnvironmentViewController: BaseController {
     var environment: Environment?
     
     override func updateViewForRefresh(path: [BaseController], envList: [Environment]) {
+        println("EnvironmentViewController.updateViewForRefresh")
         self.environments = envList
         if let selectedEnv = environment {
             self.environment = nil
@@ -35,10 +36,27 @@ class EnvironmentViewController: BaseController {
 
     
     override func viewDidLoad() {
+        println("EnvironmentViewController.viewDidLoad")
         super.viewDidLoad()
         
         if (environments.isEmpty) {
+            //In case of no data, read the stale response if there is one, then force a refresh.
             if let availabilityManager = (UIApplication.sharedApplication().delegate as! AppDelegate).availabilityManager {
+                if let envList = availabilityManager.getStoredEnvironmentList() {
+                    if envList.count > 0 {
+                        updateViewForRefresh(path, envList: envList)
+                        self.tableView.reloadData()
+                        self.tableView.setNeedsDisplay()
+                    }
+                    
+                    if let lastUpdate = availabilityManager.getStoredLastUpdateTime() {
+                        self.lastUpdate = lastUpdate
+                    }
+                    if let lastFetchDate = availabilityManager.getStoredLastFetchTime() {
+                        self.lastFetchDate = lastFetchDate
+                    }
+                }
+                self.updateStatusBarForStoredResponseButton()
                 availabilityManager.refreshAvailability(self)
             }
         }
