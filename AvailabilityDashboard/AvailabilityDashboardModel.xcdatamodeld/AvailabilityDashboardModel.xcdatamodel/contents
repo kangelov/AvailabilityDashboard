@@ -21,9 +21,9 @@
         <relationship name="nodes" optional="YES" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="Node" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Environment" positionX="133" positionY="153" width="128" height="88"/>
+        <element name="Environment" positionX="133" positionY="153" width="128" height="90"/>
+        <element name="Metadata" positionX="-36" positionY="-18" width="128" height="75"/>
         <element name="Node" positionX="-209" positionY="-168" width="128" height="103"/>
         <element name="Service" positionX="-54" positionY="18" width="128" height="88"/>
-        <element name="Metadata" positionX="-36" positionY="-18" width="128" height="75"/>
     </elements>
 </model>

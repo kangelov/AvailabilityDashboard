@@ -61,7 +61,7 @@ class BaseController: UITableViewController, AvailabilityManagerDelegate {
         }
 
         self.refreshControl?.endRefreshing()
-        self.updateStatusBarForStoredResponseButton()
+        self.updateStatusBarButton()
     }
     
     override func viewDidLoad() {
@@ -116,17 +116,6 @@ class BaseController: UITableViewController, AvailabilityManagerDelegate {
     }
     
     func updateStatusBarButton() {
-        let statusMessage = UILabel(frame: CGRectMake(0, 0, 300, 50))
-        statusMessage.text = self.getLastUpdateDate(self.lastUpdate) + "\n" + self.getLastFetchDate(self.lastFetchDate)
-        statusMessage.textColor = UIColor.blackColor()
-        statusMessage.textAlignment = NSTextAlignment.Center
-        statusMessage.numberOfLines = 3
-        statusMessage.font = UIFont(name: "Courier", size: 15)
-        statusMessage.sizeToFit()
-        self.statusBarButton.customView = statusMessage
-    }
-
-    func updateStatusBarForStoredResponseButton() {
         let statusMessage = UILabel(frame: CGRectMake(0, 0, 300, 50))
         statusMessage.text = self.getLastUpdateDate(self.lastUpdate) + "\n" + self.getLastFetchDate(self.lastFetchDate)
         statusMessage.textColor = UIColor.blackColor()

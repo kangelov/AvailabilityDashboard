@@ -113,6 +113,7 @@ class AvailabilityManager {
     
     func getStoredEnvironmentList() -> [Environment]? {
         let request = NSFetchRequest(entityName: "Environment")
+        request.sortDescriptors = [NSSortDescriptor(key: "name", ascending: true)]
         if let storedEnvironments = self.managedObjectContext.executeFetchRequest(request, error: nil) as? [Environment] {
             return storedEnvironments
         }
@@ -122,9 +123,7 @@ class AvailabilityManager {
     func getStoredLastUpdateTime() -> NSDate? {
         let request = NSFetchRequest(entityName: "Metadata")
         if let storedMetadata = self.managedObjectContext.executeFetchRequest(request, error: nil) as? [Metadata] {
-            if (storedMetadata.count == 1) {
                 return storedMetadata[0].lastUpdateTime
-            }
         }
         return nil
     }
@@ -132,9 +131,7 @@ class AvailabilityManager {
     func getStoredLastFetchTime() -> NSDate? {
         let request = NSFetchRequest(entityName: "Metadata")
         if let storedMetadata = self.managedObjectContext.executeFetchRequest(request, error: nil) as? [Metadata] {
-            if (storedMetadata.count == 1) {
                 return storedMetadata[0].lastFetchTime
-            }
         }
         return nil
     }

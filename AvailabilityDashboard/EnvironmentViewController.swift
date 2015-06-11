@@ -60,7 +60,7 @@ class EnvironmentViewController: BaseController {
                         self.lastFetchDate = lastFetchDate
                     }
                 }
-                self.updateStatusBarForStoredResponseButton()
+                self.updateStatusBarButton()
                 availabilityManager.refreshAvailability(self)
             }
         }
