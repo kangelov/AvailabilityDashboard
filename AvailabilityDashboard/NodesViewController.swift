@@ -14,23 +14,25 @@ class NodesViewController: BaseController {
 
     var service: Service?
     
-    var node: Node?
+    var selectedNode: Node?
+    var selectedNodeName: String?
     
     var nodes: [Node] = []
     
     override func updateViewForRefresh(path: [BaseController], envList: [Environment]) {
         if let serviceController = path[1] as? ServicesViewController {
             serviceController.updateViewForRefresh(path, envList: envList)
-            if let selectedService = serviceController.service {
+            if let selectedService = serviceController.selectedService {
                 serviceController.handleSelection(self)
-                if let selectedNode = self.node {
-                    self.node = nil
+                if let selectedNode = self.selectedNode {
+                    self.selectedNode = nil
                     for n in selectedService.nodes {
-                        if n.name == selectedService.name {
-                            self.node = n as! Node
+                        if n.name == selectedNodeName {
+                            self.selectedNode = n as! Node
                         }
                     }
-                    if self.node == nil {
+                    if self.selectedNode == nil {
+                        self.selectedNodeName = nil
                         var alert: UIAlertView = UIAlertView(title: "Cannot refresh node.", message: "Selected node is no longer available.", delegate: nil, cancelButtonTitle: "Dismiss")
                         alert.show()
                     }
@@ -45,7 +47,8 @@ class NodesViewController: BaseController {
     }
     
     override func viewDidAppear(animated: Bool) {
-        self.node = nil
+        self.selectedNodeName = nil
+        self.selectedNode = nil
     }
 
     // MARK: - Segues
@@ -55,7 +58,8 @@ class NodesViewController: BaseController {
             if let indexPath = self.tableView.indexPathForSelectedRow() {
                 let object = nodes[indexPath.row] as Node
                 let controller = (segue.destinationViewController as! UINavigationController).topViewController as! DetailViewController
-                self.node = object
+                self.selectedNodeName = object.name
+                self.selectedNode = object
                 
                 controller.service = self.service
                 controller.node = object

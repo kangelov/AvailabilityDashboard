@@ -15,19 +15,23 @@ class EnvironmentViewController: BaseController {
     
     var environments: [Environment] = []
     
-    var environment: Environment?
+    //CoreData yanks any object that has been deleted from the database, 
+    //so I have to copy the key out in order to find it again after a refresh.
+    var selectedEnvironmentName: String?
+    var selectedEnvironment: Environment?
     
     override func updateViewForRefresh(path: [BaseController], envList: [Environment]) {
         println("EnvironmentViewController.updateViewForRefresh")
         self.environments = envList
-        if let selectedEnv = environment {
-            self.environment = nil
+        if let selectedEnv = selectedEnvironment {
+            self.selectedEnvironment = nil
             for env in envList {
-                if env.name == selectedEnv.name {
-                    self.environment = env
+                if env.name == selectedEnvironmentName {
+                    self.selectedEnvironment = env
                 }
             }
-            if self.environment == nil {
+            if self.selectedEnvironment == nil {
+                self.selectedEnvironmentName = nil
                 var alert: UIAlertView = UIAlertView(title: "Cannot refresh environments.", message: "Selected environment is no longer available.", delegate: nil, cancelButtonTitle: "Dismiss")
                 alert.show()
             }
@@ -63,7 +67,8 @@ class EnvironmentViewController: BaseController {
     }
     
     override func viewDidAppear(animated: Bool) {
-        self.environment = nil
+        self.selectedEnvironment = nil
+        self.selectedEnvironmentName = nil
     }
 
     // MARK: - Segues
@@ -73,7 +78,8 @@ class EnvironmentViewController: BaseController {
             if let indexPath = self.tableView.indexPathForSelectedRow() {
                 let object = environments[indexPath.row] as Environment
                 let controller = segue.destinationViewController as! ServicesViewController
-                self.environment = object
+                self.selectedEnvironment = object
+                self.selectedEnvironmentName = object.name
                 handleSelection(controller)
             }
         }
@@ -82,7 +88,7 @@ class EnvironmentViewController: BaseController {
     override func handleSelection(controller: BaseController) {
         if let destController = controller as? ServicesViewController {
             destController.services = []
-            for s in self.environment!.services {
+            for s in self.selectedEnvironment!.services {
                 destController.services.append(s as! Service);
             }
             super.populateForSegue(destController)

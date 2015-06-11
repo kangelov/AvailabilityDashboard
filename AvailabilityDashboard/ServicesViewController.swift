@@ -15,22 +15,24 @@ class ServicesViewController: BaseController {
     
     var services: [Service] = []
     
-    var service: Service?
+    var selectedService: Service?
+    var selectedServiceName: String?
     
     override func updateViewForRefresh(path: [BaseController], envList: [Environment]) {
         println("ServicesViewController.updateViewForRefresh")
         if let envController = path[0] as? EnvironmentViewController {
             envController.updateViewForRefresh(path, envList: envList)
-            if let selectedEnv = envController.environment {
+            if let selectedEnv = envController.selectedEnvironment {
                 envController.handleSelection(self)
-                if let selectedService = self.service {
-                    self.service = nil
+                if let selectedService = self.selectedService {
+                    self.selectedService = nil
                     for s in selectedEnv.services {
-                        if s.name == selectedService.name {
-                            self.service = s as! Service
+                        if s.name == selectedServiceName {
+                            self.selectedService = s as! Service
                         }
                     }
-                    if self.service == nil {
+                    if self.selectedService == nil {
+                        self.selectedServiceName = nil
                         var alert: UIAlertView = UIAlertView(title: "Cannot refresh services.", message: "Selected service is no longer available.", delegate: nil, cancelButtonTitle: "Dismiss")
                         alert.show()
                     }
@@ -46,7 +48,8 @@ class ServicesViewController: BaseController {
     }
     
     override func viewDidAppear(animated: Bool) {
-        self.service = nil
+        self.selectedService = nil
+        self.selectedServiceName = nil
     }
     
     // MARK: - Segues
@@ -56,7 +59,8 @@ class ServicesViewController: BaseController {
             if let indexPath = self.tableView.indexPathForSelectedRow() {
                 let object = services[indexPath.row] as Service
                 let controller = segue.destinationViewController as! NodesViewController
-                self.service = object
+                self.selectedService = object
+                self.selectedServiceName = object.name
                 handleSelection(controller)
             }
         }
@@ -65,8 +69,8 @@ class ServicesViewController: BaseController {
     override func handleSelection(controller: BaseController) {
         if let destController = controller as? NodesViewController {
             destController.nodes = []
-            destController.service = self.service
-            for n in self.service!.nodes {
+            destController.service = self.selectedService
+            for n in self.selectedService!.nodes {
                 destController.nodes.append(n as! Node);
             }
             super.populateForSegue(controller)
