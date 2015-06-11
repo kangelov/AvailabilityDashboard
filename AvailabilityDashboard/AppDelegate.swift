@@ -137,7 +137,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
         //Do stuff
         println("Background fetch started.")
         self.completionHandler = completionHandler
-        self.availabilityManager?.forceRefreshAvailability(self)
+        self.availabilityManager?.refreshAvailability(self)
     }
     
     func applicationDidFinishLaunching(application: UIApplication) {

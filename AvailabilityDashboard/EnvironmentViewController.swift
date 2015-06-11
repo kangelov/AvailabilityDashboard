@@ -46,17 +46,17 @@ class EnvironmentViewController: BaseController {
         if (environments.isEmpty) {
             //In case of no data, read the stale response if there is one, then force a refresh.
             if let availabilityManager = (UIApplication.sharedApplication().delegate as! AppDelegate).availabilityManager {
-                if let envList = availabilityManager.getStoredEnvironmentList() {
+                if let envList = availabilityManager.getEnvironmentList() {
                     if envList.count > 0 {
                         updateViewForRefresh(path, envList: envList)
                         self.tableView.reloadData()
                         self.tableView.setNeedsDisplay()
                     }
                     
-                    if let lastUpdate = availabilityManager.getStoredLastUpdateTime() {
+                    if let lastUpdate = availabilityManager.getLastUpdateTime() {
                         self.lastUpdate = lastUpdate
                     }
-                    if let lastFetchDate = availabilityManager.getStoredLastFetchTime() {
+                    if let lastFetchDate = availabilityManager.getLastFetchTime() {
                         self.lastFetchDate = lastFetchDate
                     }
                 }

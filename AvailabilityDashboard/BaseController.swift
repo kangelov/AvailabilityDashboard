@@ -31,7 +31,7 @@ class BaseController: UITableViewController, AvailabilityManagerDelegate {
             self.tableView.setNeedsDisplay()
         }
 
-        if let lastUpdate = manager.getLastUpdateDate() {
+        if let lastUpdate = manager.getLastUpdateTime() {
             self.lastUpdate = lastUpdate
         }
         if let lastFetchDate = manager.getLastFetchTime() {
@@ -45,17 +45,17 @@ class BaseController: UITableViewController, AvailabilityManagerDelegate {
         var alert: UIAlertView = UIAlertView(title: "Error Fetching Availability Data", message: error?.localizedDescription, delegate: nil, cancelButtonTitle: "Dismiss")
         alert.show()
 
-        if let envList = manager.getStoredEnvironmentList() {
+        if let envList = manager.getEnvironmentList() {
             if envList.count > 0 {
                 updateViewForRefresh(path, envList: envList)
                 self.tableView.reloadData()
                 self.tableView.setNeedsDisplay()
             }
 
-            if let lastUpdate = manager.getStoredLastUpdateTime() {
+            if let lastUpdate = manager.getLastUpdateTime() {
                 self.lastUpdate = lastUpdate
             }
-            if let lastFetchDate = manager.getStoredLastFetchTime() {
+            if let lastFetchDate = manager.getLastFetchTime() {
                 self.lastFetchDate = lastFetchDate
             }
         }
@@ -129,7 +129,7 @@ class BaseController: UITableViewController, AvailabilityManagerDelegate {
     
     func handleRefresh(sender: AnyObject) {
         if let availabilityManager = (UIApplication.sharedApplication().delegate as! AppDelegate).availabilityManager {
-            availabilityManager.forceRefreshAvailability(self)
+            availabilityManager.refreshAvailability(self)
         }
     }
     

@@ -15,32 +15,13 @@ let AvailabilityChangedNotification = "AvailabilityChangedNotification"
 
 class AvailabilityManager {
     
-    
-    
     let managedObjectContext : NSManagedObjectContext
-    
-    var json : JSON? = nil
-    
-    var lastFetchTime : NSDate? = nil {
-        didSet{
-            postDataChanged()
-        }
-    }
     
     init(managedObjectContext : NSManagedObjectContext) {
         self.managedObjectContext = managedObjectContext
     }
     
-    func refreshAvailability(delegate : AvailabilityManagerDelegate?) {
-        //We should have a better logic here to decide when to refresh
-        if (json == nil) {
-            forceRefreshAvailability(delegate)
-        } else {
-            delegate?.refreshSuccess(self)
-        }
-    }
-    
-    func forceRefreshAvailability(delegate: AvailabilityManagerDelegate?) {
+    func refreshAvailability(delegate: AvailabilityManagerDelegate?) {
         let defaults = NSUserDefaults.standardUserDefaults()
         let url = defaults.stringForKey("url") as String!
         NSLog("About to call backend at \(url)")
@@ -52,13 +33,11 @@ class AvailabilityManager {
                         NSLog("Error: \(error)")
                         NSLog("REQUEST: \(req)")
                         NSLog("RESPONSE: \(res)")
-                        self.json = nil
                         delegate?.refreshError(self, error: error)
                     }
                     else {
                         //NSLog("Success: \(json)")
-                        self.json = JSON(json!)
-                        self.lastFetchTime = NSDate()
+                        self.updateCoreData(JSON(json!))
                         delegate?.refreshSuccess(self)
                     }
             }
@@ -68,16 +47,8 @@ class AvailabilityManager {
         }
     }
     
-    func needsRefresh() -> Bool {
-        return json == nil
-    }
-    
-    func getEnvironmentList() -> [Environment]? {
-        if self.json == nil {
-            return nil
-        }
-        var environments : [Environment] = []
-        for (key: String, subJSON: JSON) in self.json! {
+    private func updateCoreData(json: JSON) {
+        for (key: String, subJSON: JSON) in json {
             if (key == "environments") {
                 //Clear stale environments
                 let request = NSFetchRequest(entityName: "Environment")
@@ -100,18 +71,16 @@ class AvailabilityManager {
                     newenv.name = envJSON["name"].stringValue
                     newenv.status = envJSON["status"].stringValue
                     newenv.services = NSOrderedSet(array: getServiceList(envJSON))
-                    environments.append(newenv)
                 }
                 let metadata = NSEntityDescription.insertNewObjectForEntityForName("Metadata", inManagedObjectContext: self.managedObjectContext) as! Metadata
-                metadata.lastFetchTime = self.lastFetchTime!
-                metadata.lastUpdateTime = getLastUpdateDate()!
+                metadata.lastFetchTime = NSDate()
+                metadata.lastUpdateTime = getLastUpdateDate(json)!
                 self.managedObjectContext.save(nil)
             }
         }
-        return environments
     }
     
-    func getStoredEnvironmentList() -> [Environment]? {
+    func getEnvironmentList() -> [Environment]? {
         let request = NSFetchRequest(entityName: "Environment")
         request.sortDescriptors = [NSSortDescriptor(key: "name", ascending: true)]
         if let storedEnvironments = self.managedObjectContext.executeFetchRequest(request, error: nil) as? [Environment] {
@@ -120,7 +89,7 @@ class AvailabilityManager {
         return nil
     }
     
-    func getStoredLastUpdateTime() -> NSDate? {
+    func getLastUpdateTime() -> NSDate? {
         let request = NSFetchRequest(entityName: "Metadata")
         if let storedMetadata = self.managedObjectContext.executeFetchRequest(request, error: nil) as? [Metadata] {
                 return storedMetadata[0].lastUpdateTime
@@ -128,7 +97,7 @@ class AvailabilityManager {
         return nil
     }
 
-    func getStoredLastFetchTime() -> NSDate? {
+    func getLastFetchTime() -> NSDate? {
         let request = NSFetchRequest(entityName: "Metadata")
         if let storedMetadata = self.managedObjectContext.executeFetchRequest(request, error: nil) as? [Metadata] {
                 return storedMetadata[0].lastFetchTime
@@ -161,25 +130,13 @@ class AvailabilityManager {
         return nodeList
     }
     
-    func getLastUpdateDate() -> NSDate? {
-        if self.json == nil {
-            return nil
-        }
-        for (key: String, subJSON: JSON) in self.json! {
+    private func getLastUpdateDate(json: JSON) -> NSDate? {
+        for (key: String, subJSON: JSON) in json {
             if key == "updateTime" {
                 return NSDate(timeIntervalSince1970: subJSON.doubleValue / 1000)
             }
         }
         return nil
-    }
-    
-    func getLastFetchTime() -> NSDate? {
-        return self.lastFetchTime
-    }
-    
-    func postDataChanged() {
-        let center = NSNotificationCenter.defaultCenter()
-        center.postNotificationName(AvailabilityChangedNotification, object: self)
     }
     
 }
