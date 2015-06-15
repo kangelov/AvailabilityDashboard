@@ -15,6 +15,8 @@ class EnvironmentViewController: BaseController {
     
     var environments: [Environment] = []
     
+    var didShowSplash : Bool = false
+    
     //CoreData yanks any object that has been deleted from the database, 
     //so I have to copy the key out in order to find it again after a refresh.
     var selectedEnvironmentName: String?
@@ -41,6 +43,7 @@ class EnvironmentViewController: BaseController {
     
     override func viewDidLoad() {
         println("EnvironmentViewController.viewDidLoad")
+        
         super.viewDidLoad()
         
         if (environments.isEmpty) {
@@ -69,6 +72,13 @@ class EnvironmentViewController: BaseController {
     override func viewDidAppear(animated: Bool) {
         self.selectedEnvironment = nil
         self.selectedEnvironmentName = nil
+        
+        if (!didShowSplash) {
+            let mainStoryboard = UIStoryboard(name: "Main", bundle: nil)
+            let splash = storyboard?.instantiateViewControllerWithIdentifier("Splash") as! UIViewController
+            self.presentViewController(splash, animated: false, completion: nil)
+            didShowSplash = true
+        }
     }
 
     // MARK: - Segues

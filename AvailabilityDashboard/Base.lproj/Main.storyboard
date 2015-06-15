@@ -5,6 +5,35 @@
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
+        <!--Splash-->
+        <scene sceneID="lIs-cL-acv">
+            <objects>
+                <viewController storyboardIdentifier="Splash" title="Splash" useStoryboardIdentifierAsRestorationIdentifier="YES" id="90M-La-rts" customClass="SplashViewController" customModule="AvailabilityDashboard" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="2vK-BH-nP2"/>
+                        <viewControllerLayoutGuide type="bottom" id="omO-hf-VT1"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="egg-iR-QCP">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="Splash" translatesAutoresizingMaskIntoConstraints="NO" id="lVM-pv-MId">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="651"/>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="lVM-pv-MId" firstAttribute="top" secondItem="egg-iR-QCP" secondAttribute="topMargin" id="3gN-KO-F4M"/>
+                            <constraint firstAttribute="bottomMargin" secondItem="lVM-pv-MId" secondAttribute="bottom" id="LgE-cD-c4b"/>
+                            <constraint firstItem="lVM-pv-MId" firstAttribute="leading" secondItem="egg-iR-QCP" secondAttribute="leadingMargin" id="RJk-ju-uLo"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="lVM-pv-MId" secondAttribute="trailing" id="WHF-4E-QhZ"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="acs-Ww-VqR" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-768" y="-1155"/>
+        </scene>
         <!--Menu-->
         <scene sceneID="pY4-Hu-kfo">
             <objects>
@@ -593,6 +622,7 @@
         <image name="Failed" width="96" height="96"/>
         <image name="Logo" width="63" height="63"/>
         <image name="OK" width="96" height="96"/>
+        <image name="Splash" width="250" height="444"/>
         <image name="Unknown" width="96" height="96"/>
         <image name="UnknownBG" width="163" height="163"/>
         <image name="WrongVersion" width="96" height="96"/>
