@@ -17,8 +17,11 @@ class AvailabilityManager {
     
     let managedObjectContext : NSManagedObjectContext
     
-    init(managedObjectContext : NSManagedObjectContext) {
+    let saveContext : () -> Void
+    
+    init(managedObjectContext : NSManagedObjectContext, saveContext : () -> Void) {
         self.managedObjectContext = managedObjectContext
+        self.saveContext = saveContext
     }
     
     func refreshAvailability(delegate: AvailabilityManagerDelegate?) {
@@ -59,8 +62,8 @@ class AvailabilityManager {
                 }
                 //Clear stale metadata
                 let metadataRequest = NSFetchRequest(entityName: "Metadata")
-                if let metadata = self.managedObjectContext.executeFetchRequest(request, error:nil) as? [Metadata] {
-                    for m in metadata {
+                if let storedMetadata = self.managedObjectContext.executeFetchRequest(metadataRequest, error: nil) as? [Metadata] {
+                    for m in storedMetadata {
                         self.managedObjectContext.deleteObject(m)
                     }
                 }
@@ -75,7 +78,7 @@ class AvailabilityManager {
                 let metadata = NSEntityDescription.insertNewObjectForEntityForName("Metadata", inManagedObjectContext: self.managedObjectContext) as! Metadata
                 metadata.lastFetchTime = NSDate()
                 metadata.lastUpdateTime = getLastUpdateDate(json)!
-                self.managedObjectContext.save(nil)
+                self.saveContext()
             }
         }
     }

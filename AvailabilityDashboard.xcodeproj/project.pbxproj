@@ -15,12 +15,12 @@
 		405D2E7E1B014FB200798DB1 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 405D2E7D1B014FB200798DB1 /* Images.xcassets */; };
 		405D2E811B014FB200798DB1 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 405D2E7F1B014FB200798DB1 /* LaunchScreen.xib */; };
 		405D2E8D1B014FB200798DB1 /* AvailabilityDashboardTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 405D2E8C1B014FB200798DB1 /* AvailabilityDashboardTests.swift */; };
+		406871FF1B2F6F920062EDFE /* Environment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 406871FE1B2F6F920062EDFE /* Environment.swift */; };
+		406872011B2F6F930062EDFE /* Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = 406872001B2F6F930062EDFE /* Service.swift */; };
+		406872031B2F6F930062EDFE /* Metadata.swift in Sources */ = {isa = PBXBuildFile; fileRef = 406872021B2F6F930062EDFE /* Metadata.swift */; };
+		406872051B2F6F930062EDFE /* Node.swift in Sources */ = {isa = PBXBuildFile; fileRef = 406872041B2F6F930062EDFE /* Node.swift */; };
 		40ACB9621B2242D4005C3E59 /* BaseController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40ACB9611B2242D4005C3E59 /* BaseController.swift */; };
 		40AEA61A1B0BE7AB007A1140 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 40AEA6191B0BE7AB007A1140 /* Settings.bundle */; };
-		40B057FE1B28E2C800374FBF /* Environment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40B057FD1B28E2C800374FBF /* Environment.swift */; };
-		40B058001B28E2C800374FBF /* Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40B057FF1B28E2C800374FBF /* Service.swift */; };
-		40B058021B28E2C800374FBF /* Metadata.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40B058011B28E2C800374FBF /* Metadata.swift */; };
-		40B058041B28E2C800374FBF /* Node.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40B058031B28E2C800374FBF /* Node.swift */; };
 		40F381211B029D7A00E10B8E /* EnvironmentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40F381201B029D7A00E10B8E /* EnvironmentViewController.swift */; };
 		40F381231B03EA1E00E10B8E /* ServicesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40F381221B03EA1E00E10B8E /* ServicesViewController.swift */; };
 		40F3812F1B03F15900E10B8E /* AvailabilityDashboardModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 40F3812D1B03F15900E10B8E /* AvailabilityDashboardModel.xcdatamodeld */; };
@@ -51,12 +51,12 @@
 		405D2E861B014FB200798DB1 /* AvailabilityDashboardTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AvailabilityDashboardTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		405D2E8B1B014FB200798DB1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		405D2E8C1B014FB200798DB1 /* AvailabilityDashboardTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvailabilityDashboardTests.swift; sourceTree = "<group>"; };
+		406871FE1B2F6F920062EDFE /* Environment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Environment.swift; sourceTree = "<group>"; };
+		406872001B2F6F930062EDFE /* Service.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Service.swift; sourceTree = "<group>"; };
+		406872021B2F6F930062EDFE /* Metadata.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Metadata.swift; sourceTree = "<group>"; };
+		406872041B2F6F930062EDFE /* Node.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Node.swift; sourceTree = "<group>"; };
 		40ACB9611B2242D4005C3E59 /* BaseController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseController.swift; sourceTree = "<group>"; };
 		40AEA6191B0BE7AB007A1140 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
-		40B057FD1B28E2C800374FBF /* Environment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Environment.swift; sourceTree = "<group>"; };
-		40B057FF1B28E2C800374FBF /* Service.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Service.swift; sourceTree = "<group>"; };
-		40B058011B28E2C800374FBF /* Metadata.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Metadata.swift; sourceTree = "<group>"; };
-		40B058031B28E2C800374FBF /* Node.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Node.swift; sourceTree = "<group>"; };
 		40F381201B029D7A00E10B8E /* EnvironmentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnvironmentViewController.swift; sourceTree = "<group>"; };
 		40F381221B03EA1E00E10B8E /* ServicesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServicesViewController.swift; sourceTree = "<group>"; };
 		40F3812E1B03F15900E10B8E /* AvailabilityDashboardModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = AvailabilityDashboardModel.xcdatamodel; sourceTree = "<group>"; };
@@ -168,10 +168,10 @@
 		40F381241B03EC7800E10B8E /* model */ = {
 			isa = PBXGroup;
 			children = (
-				40B058031B28E2C800374FBF /* Node.swift */,
-				40B058011B28E2C800374FBF /* Metadata.swift */,
-				40B057FF1B28E2C800374FBF /* Service.swift */,
-				40B057FD1B28E2C800374FBF /* Environment.swift */,
+				406872041B2F6F930062EDFE /* Node.swift */,
+				406872021B2F6F930062EDFE /* Metadata.swift */,
+				406872001B2F6F930062EDFE /* Service.swift */,
+				406871FE1B2F6F920062EDFE /* Environment.swift */,
 			);
 			name = model;
 			sourceTree = "<group>";
@@ -347,13 +347,13 @@
 				405D2E791B014FB200798DB1 /* DetailViewController.swift in Sources */,
 				405D2E771B014FB200798DB1 /* NodesViewController.swift in Sources */,
 				40F3812F1B03F15900E10B8E /* AvailabilityDashboardModel.xcdatamodeld in Sources */,
-				40B058041B28E2C800374FBF /* Node.swift in Sources */,
+				406872051B2F6F930062EDFE /* Node.swift in Sources */,
 				405D2E751B014FB200798DB1 /* AppDelegate.swift in Sources */,
-				40B057FE1B28E2C800374FBF /* Environment.swift in Sources */,
+				406871FF1B2F6F920062EDFE /* Environment.swift in Sources */,
 				40F381231B03EA1E00E10B8E /* ServicesViewController.swift in Sources */,
 				4053640D1B06668300CD9980 /* AvailabilityManager.swift in Sources */,
-				40B058021B28E2C800374FBF /* Metadata.swift in Sources */,
-				40B058001B28E2C800374FBF /* Service.swift in Sources */,
+				406872031B2F6F930062EDFE /* Metadata.swift in Sources */,
+				406872011B2F6F930062EDFE /* Service.swift in Sources */,
 				40ACB9621B2242D4005C3E59 /* BaseController.swift in Sources */,
 				40F381211B029D7A00E10B8E /* EnvironmentViewController.swift in Sources */,
 			);
