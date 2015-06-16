@@ -95,7 +95,9 @@ class AvailabilityManager {
     func getLastUpdateTime() -> NSDate? {
         let request = NSFetchRequest(entityName: "Metadata")
         if let storedMetadata = self.managedObjectContext.executeFetchRequest(request, error: nil) as? [Metadata] {
+            if storedMetadata.count == 1 {
                 return storedMetadata[0].lastUpdateTime
+            }
         }
         return nil
     }
@@ -103,7 +105,9 @@ class AvailabilityManager {
     func getLastFetchTime() -> NSDate? {
         let request = NSFetchRequest(entityName: "Metadata")
         if let storedMetadata = self.managedObjectContext.executeFetchRequest(request, error: nil) as? [Metadata] {
+            if storedMetadata.count == 1 {
                 return storedMetadata[0].lastFetchTime
+            }
         }
         return nil
     }
