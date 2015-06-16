@@ -19,9 +19,12 @@ class AvailabilityManager {
     
     let saveContext : () -> Void
     
-    init(managedObjectContext : NSManagedObjectContext, saveContext : () -> Void) {
+    let deviceToken : NSData?
+    
+    init(managedObjectContext : NSManagedObjectContext, saveContext : () -> Void, deviceToken : NSData?) {
         self.managedObjectContext = managedObjectContext
         self.saveContext = saveContext
+        self.deviceToken = deviceToken
     }
     
     func refreshAvailability(delegate: AvailabilityManagerDelegate?) {
@@ -32,7 +35,9 @@ class AvailabilityManager {
         NSLog("About to call backend at \(url)")
         if url != nil {
             NSURLCache.sharedURLCache().removeAllCachedResponses()
-            var request = Alamofire.request(.GET, url, parameters: nil, encoding: .JSON)
+            var request = Alamofire.request(.GET, url + "?token=\(deviceToken)", parameters: nil, encoding: .JSON)
+                .validate(statusCode: 200..<300)
+                .validate(contentType: ["application/json"])
             if (user != nil && !user.isEmpty && pass != nil && !pass.isEmpty) {
                 request = request.authenticate(user: user, password: pass)
             }

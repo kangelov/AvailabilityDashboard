@@ -23,7 +23,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
         UIApplication.sharedApplication().registerForRemoteNotifications()
         
         // Override point for customization after application launch.
-        self.availabilityManager = AvailabilityManager(managedObjectContext: self.managedObjectContext!, saveContext: { () -> Void in self.saveContext() })
+        self.availabilityManager = AvailabilityManager(managedObjectContext: self.managedObjectContext!, saveContext: { () -> Void in self.saveContext() }, deviceToken: deviceToken)
         let splitViewController = self.window!.rootViewController as! UISplitViewController
         let navigationController = splitViewController.viewControllers[splitViewController.viewControllers.count-1] as! UINavigationController
         navigationController.topViewController.navigationItem.leftBarButtonItem = splitViewController.displayModeButtonItem()
