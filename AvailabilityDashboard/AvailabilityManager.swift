@@ -19,15 +19,12 @@ class AvailabilityManager {
     
     let saveContext : () -> Void
     
-    let deviceToken : NSData?
-    
-    init(managedObjectContext : NSManagedObjectContext, saveContext : () -> Void, deviceToken : NSData?) {
+    init(managedObjectContext : NSManagedObjectContext, saveContext : () -> Void) {
         self.managedObjectContext = managedObjectContext
         self.saveContext = saveContext
-        self.deviceToken = deviceToken
     }
     
-    func refreshAvailability(delegate: AvailabilityManagerDelegate?) {
+    func refreshAvailability(delegate: AvailabilityManagerDelegate?, deviceToken: NSData?) {
         let defaults = NSUserDefaults.standardUserDefaults()
         var url = defaults.stringForKey("url") as String!
         if (deviceToken != nil) {

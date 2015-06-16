@@ -129,13 +129,13 @@ class BaseController: UITableViewController, AvailabilityManagerDelegate {
     
     func handleRefresh(sender: AnyObject) {
         if let availabilityManager = (UIApplication.sharedApplication().delegate as! AppDelegate).availabilityManager {
-            availabilityManager.refreshAvailability(self)
+            availabilityManager.refreshAvailability(self, deviceToken: (UIApplication.sharedApplication().delegate as! AppDelegate).deviceToken)
         }
     }
     
     func availabilityChanged(notification: NSNotification) {
         if let availabilityManager = notification.object as? AvailabilityManager {
-            availabilityManager.refreshAvailability(self)
+            availabilityManager.refreshAvailability(self, deviceToken: (UIApplication.sharedApplication().delegate as! AppDelegate).deviceToken)
         }
     }
     

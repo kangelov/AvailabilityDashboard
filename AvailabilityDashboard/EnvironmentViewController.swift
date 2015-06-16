@@ -64,7 +64,7 @@ class EnvironmentViewController: BaseController {
                     }
                 }
                 self.updateStatusBarButton()
-                availabilityManager.refreshAvailability(self)
+                availabilityManager.refreshAvailability(self, deviceToken: (UIApplication.sharedApplication().delegate as! AppDelegate).deviceToken)
             }
         }
     }

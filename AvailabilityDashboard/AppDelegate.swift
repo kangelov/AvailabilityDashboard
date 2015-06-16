@@ -19,11 +19,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
     var deviceToken : NSData? = nil
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
+        println("Starting app...")
         UIApplication.sharedApplication().registerUserNotificationSettings(UIUserNotificationSettings(forTypes: UIUserNotificationType.Alert | UIUserNotificationType.Sound, categories: nil))
         UIApplication.sharedApplication().registerForRemoteNotifications()
         
         // Override point for customization after application launch.
-        self.availabilityManager = AvailabilityManager(managedObjectContext: self.managedObjectContext!, saveContext: { () -> Void in self.saveContext() }, deviceToken: deviceToken)
+        self.availabilityManager = AvailabilityManager(managedObjectContext: self.managedObjectContext!, saveContext: { () -> Void in self.saveContext() })
         let splitViewController = self.window!.rootViewController as! UISplitViewController
         let navigationController = splitViewController.viewControllers[splitViewController.viewControllers.count-1] as! UINavigationController
         navigationController.topViewController.navigationItem.leftBarButtonItem = splitViewController.displayModeButtonItem()
@@ -140,7 +141,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
         //Do stuff
         println("Background fetch started.")
         self.completionHandler = completionHandler
-        self.availabilityManager?.refreshAvailability(self)
+        self.availabilityManager?.refreshAvailability(self, deviceToken: deviceToken)
     }
     
     func applicationDidFinishLaunching(application: UIApplication) {
