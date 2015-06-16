@@ -17,17 +17,65 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="Splash" translatesAutoresizingMaskIntoConstraints="NO" id="lVM-pv-MId">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="651"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Splash" translatesAutoresizingMaskIntoConstraints="NO" id="aHg-wK-BEP">
+                                <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
+                                <variation key="heightClass=regular" misplaced="YES">
+                                    <rect key="frame" x="16" y="-182" width="600" height="800"/>
+                                </variation>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Splash_Landscape" translatesAutoresizingMaskIntoConstraints="NO" id="G0A-M7-FfX">
+                                <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="lVM-pv-MId" firstAttribute="top" secondItem="egg-iR-QCP" secondAttribute="topMargin" id="3gN-KO-F4M"/>
-                            <constraint firstAttribute="bottomMargin" secondItem="lVM-pv-MId" secondAttribute="bottom" id="LgE-cD-c4b"/>
-                            <constraint firstItem="lVM-pv-MId" firstAttribute="leading" secondItem="egg-iR-QCP" secondAttribute="leadingMargin" id="RJk-ju-uLo"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="lVM-pv-MId" secondAttribute="trailing" id="WHF-4E-QhZ"/>
+                            <constraint firstItem="G0A-M7-FfX" firstAttribute="top" secondItem="egg-iR-QCP" secondAttribute="top" id="Dmf-LF-34o"/>
+                            <constraint firstAttribute="trailing" secondItem="aHg-wK-BEP" secondAttribute="trailing" id="c0x-UI-oJK"/>
+                            <constraint firstItem="aHg-wK-BEP" firstAttribute="top" secondItem="egg-iR-QCP" secondAttribute="top" id="cBi-4B-bxI"/>
+                            <constraint firstAttribute="trailing" secondItem="G0A-M7-FfX" secondAttribute="trailing" id="rHk-zd-vZv"/>
+                            <constraint firstItem="G0A-M7-FfX" firstAttribute="leading" secondItem="egg-iR-QCP" secondAttribute="leading" id="uJl-a7-2mi"/>
+                            <constraint firstItem="aHg-wK-BEP" firstAttribute="leading" secondItem="egg-iR-QCP" secondAttribute="leading" id="uk1-uh-X5Q"/>
+                            <constraint firstItem="omO-hf-VT1" firstAttribute="top" secondItem="aHg-wK-BEP" secondAttribute="bottom" id="wQv-oj-EBq"/>
+                            <constraint firstItem="omO-hf-VT1" firstAttribute="top" secondItem="G0A-M7-FfX" secondAttribute="bottom" id="wdq-UK-ycR"/>
                         </constraints>
+                        <variation key="default">
+                            <mask key="subviews">
+                                <exclude reference="aHg-wK-BEP"/>
+                                <exclude reference="G0A-M7-FfX"/>
+                            </mask>
+                            <mask key="constraints">
+                                <exclude reference="Dmf-LF-34o"/>
+                                <exclude reference="rHk-zd-vZv"/>
+                                <exclude reference="uJl-a7-2mi"/>
+                                <exclude reference="wQv-oj-EBq"/>
+                                <exclude reference="wdq-UK-ycR"/>
+                                <exclude reference="c0x-UI-oJK"/>
+                                <exclude reference="cBi-4B-bxI"/>
+                                <exclude reference="uk1-uh-X5Q"/>
+                            </mask>
+                        </variation>
+                        <variation key="heightClass=regular">
+                            <mask key="subviews">
+                                <include reference="aHg-wK-BEP"/>
+                            </mask>
+                            <mask key="constraints">
+                                <include reference="wQv-oj-EBq"/>
+                                <include reference="c0x-UI-oJK"/>
+                                <include reference="cBi-4B-bxI"/>
+                                <include reference="uk1-uh-X5Q"/>
+                            </mask>
+                        </variation>
+                        <variation key="widthClass=regular">
+                            <mask key="subviews">
+                                <include reference="G0A-M7-FfX"/>
+                            </mask>
+                            <mask key="constraints">
+                                <include reference="Dmf-LF-34o"/>
+                                <include reference="rHk-zd-vZv"/>
+                                <include reference="uJl-a7-2mi"/>
+                                <include reference="wdq-UK-ycR"/>
+                            </mask>
+                        </variation>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="acs-Ww-VqR" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -623,6 +671,7 @@
         <image name="Logo" width="63" height="63"/>
         <image name="OK" width="96" height="96"/>
         <image name="Splash" width="250" height="444"/>
+        <image name="Splash_Landscape" width="444" height="250"/>
         <image name="Unknown" width="96" height="96"/>
         <image name="UnknownBG" width="163" height="163"/>
         <image name="WrongVersion" width="96" height="96"/>

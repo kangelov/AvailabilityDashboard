@@ -16,10 +16,14 @@
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
+                <constraint firstItem="yo7-EA-8zd" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="2gl-jc-GdQ"/>
                 <constraint firstItem="yo7-EA-8zd" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="JI0-zr-3VP"/>
                 <constraint firstItem="yo7-EA-8zd" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="LIL-Ag-Sv1"/>
+                <constraint firstAttribute="bottom" secondItem="yo7-EA-8zd" secondAttribute="bottom" id="MNe-SH-KHq"/>
                 <constraint firstAttribute="trailing" secondItem="yo7-EA-8zd" secondAttribute="trailing" id="YiX-Yf-bzF"/>
+                <constraint firstAttribute="trailing" secondItem="yo7-EA-8zd" secondAttribute="trailing" id="Yid-Xm-pcQ"/>
                 <constraint firstAttribute="bottom" secondItem="yo7-EA-8zd" secondAttribute="bottom" id="aeH-Zt-e2s"/>
+                <constraint firstItem="yo7-EA-8zd" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="fp5-Yv-UeJ"/>
                 <constraint firstItem="yo7-EA-8zd" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="ixg-p6-KIb"/>
                 <constraint firstAttribute="bottom" secondItem="yo7-EA-8zd" secondAttribute="bottom" id="oA4-Yh-eOj"/>
                 <constraint firstItem="yo7-EA-8zd" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="puO-bQ-vfV"/>
