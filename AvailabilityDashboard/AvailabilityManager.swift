@@ -29,13 +29,16 @@ class AvailabilityManager {
     
     func refreshAvailability(delegate: AvailabilityManagerDelegate?) {
         let defaults = NSUserDefaults.standardUserDefaults()
-        let url = defaults.stringForKey("url") as String!
+        var url = defaults.stringForKey("url") as String!
+        if (deviceToken != nil) {
+            url = url + "?token=\(deviceToken)"
+        }
         let user = defaults.stringForKey("user") as String!
         let pass = defaults.stringForKey("password") as String!
         NSLog("About to call backend at \(url)")
         if url != nil {
             NSURLCache.sharedURLCache().removeAllCachedResponses()
-            var request = Alamofire.request(.GET, url + "?token=\(deviceToken)", parameters: nil, encoding: .JSON)
+            var request = Alamofire.request(.GET, url, parameters: nil, encoding: .JSON)
                 .validate(statusCode: 200..<300)
                 .validate(contentType: ["application/json"])
             if (user != nil && !user.isEmpty && pass != nil && !pass.isEmpty) {
