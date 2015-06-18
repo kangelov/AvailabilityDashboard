@@ -8,7 +8,7 @@
         <!--Splash-->
         <scene sceneID="lIs-cL-acv">
             <objects>
-                <viewController storyboardIdentifier="Splash" title="Splash" useStoryboardIdentifierAsRestorationIdentifier="YES" id="90M-La-rts" customClass="SplashViewController" customModule="AvailabilityDashboard" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="Splash" title="Splash" useStoryboardIdentifierAsRestorationIdentifier="YES" id="90M-La-rts" customClass="SplashViewController" customModule="WS_Monitor" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="2vK-BH-nP2"/>
                         <viewControllerLayoutGuide type="bottom" id="omO-hf-VT1"/>
@@ -19,9 +19,6 @@
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Splash" translatesAutoresizingMaskIntoConstraints="NO" id="aHg-wK-BEP">
                                 <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
-                                <variation key="heightClass=regular" misplaced="YES">
-                                    <rect key="frame" x="16" y="-182" width="600" height="800"/>
-                                </variation>
                             </imageView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Splash_Landscape" translatesAutoresizingMaskIntoConstraints="NO" id="G0A-M7-FfX">
                                 <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
@@ -44,11 +41,11 @@
                                 <exclude reference="G0A-M7-FfX"/>
                             </mask>
                             <mask key="constraints">
+                                <exclude reference="wQv-oj-EBq"/>
+                                <exclude reference="wdq-UK-ycR"/>
                                 <exclude reference="Dmf-LF-34o"/>
                                 <exclude reference="rHk-zd-vZv"/>
                                 <exclude reference="uJl-a7-2mi"/>
-                                <exclude reference="wQv-oj-EBq"/>
-                                <exclude reference="wdq-UK-ycR"/>
                                 <exclude reference="c0x-UI-oJK"/>
                                 <exclude reference="cBi-4B-bxI"/>
                                 <exclude reference="uk1-uh-X5Q"/>
@@ -70,10 +67,10 @@
                                 <include reference="G0A-M7-FfX"/>
                             </mask>
                             <mask key="constraints">
+                                <include reference="wdq-UK-ycR"/>
                                 <include reference="Dmf-LF-34o"/>
                                 <include reference="rHk-zd-vZv"/>
                                 <include reference="uJl-a7-2mi"/>
-                                <include reference="wdq-UK-ycR"/>
                             </mask>
                         </variation>
                     </view>
@@ -105,7 +102,7 @@
         <!--Detail-->
         <scene sceneID="yUG-lL-AsK">
             <objects>
-                <viewController title="Detail" id="JEX-9P-axG" customClass="DetailViewController" customModule="AvailabilityDashboard" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Detail" id="JEX-9P-axG" customClass="DetailViewController" customModule="WS_Monitor" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="SYR-Wa-9uf"/>
                         <viewControllerLayoutGuide type="bottom" id="GAO-Cl-Wes"/>
@@ -240,7 +237,7 @@
         <!--Nodes-->
         <scene sceneID="smW-Zh-WAh">
             <objects>
-                <tableViewController title="Nodes" clearsSelectionOnViewWillAppear="NO" id="7bK-jq-Zjz" customClass="NodesViewController" customModule="AvailabilityDashboard" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController title="Nodes" clearsSelectionOnViewWillAppear="NO" id="7bK-jq-Zjz" customClass="NodesViewController" customModule="WS_Monitor" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="r7i-6Z-zg0">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -401,7 +398,7 @@
         <!--Environments-->
         <scene sceneID="DdS-zO-IVN">
             <objects>
-                <tableViewController title="Environments" id="FxP-h3-f5B" customClass="EnvironmentViewController" customModule="AvailabilityDashboard" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController title="Environments" id="FxP-h3-f5B" customClass="EnvironmentViewController" customModule="WS_Monitor" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="N36-zS-Zog">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -533,7 +530,7 @@
         <!--Services-->
         <scene sceneID="Ojx-mh-p9P">
             <objects>
-                <tableViewController title="Services" id="G2S-9Z-KRy" customClass="ServicesViewController" customModule="AvailabilityDashboard" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController title="Services" id="G2S-9Z-KRy" customClass="ServicesViewController" customModule="WS_Monitor" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="vCw-R8-hFY">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -677,8 +674,8 @@
         <image name="WrongVersion" width="96" height="96"/>
     </resources>
     <inferredMetricsTieBreakers>
+        <segue reference="Tll-UG-LXB"/>
         <segue reference="FGt-ah-3ln"/>
         <segue reference="re0-mr-pDN"/>
-        <segue reference="r4p-6c-PiF"/>
     </inferredMetricsTieBreakers>
 </document>

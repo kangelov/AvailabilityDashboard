@@ -1,29 +1,29 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="7701" systemVersion="14D136" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
-    <entity name="Environment" representedClassName="WS_Monitor.Environment" syncable="YES">
+    <entity name="Environment" representedClassName="AvailabilityDashboard.Environment" syncable="YES">
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="status" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="services" optional="YES" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="Service" syncable="YES"/>
     </entity>
-    <entity name="Metadata" representedClassName="WS_Monitor.Metadata" syncable="YES">
+    <entity name="Metadata" representedClassName="AvailabilityDashboard.Metadata" syncable="YES">
         <attribute name="lastFetchTime" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="lastUpdateTime" optional="YES" attributeType="Date" syncable="YES"/>
     </entity>
-    <entity name="Node" representedClassName="WS_Monitor.Node" syncable="YES">
+    <entity name="Node" representedClassName="AvailabilityDashboard.Node" syncable="YES">
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="response" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="status" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="version" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
-    <entity name="Service" representedClassName="WS_Monitor.Service" syncable="YES">
+    <entity name="Service" representedClassName="AvailabilityDashboard.Service" syncable="YES">
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="status" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="nodes" optional="YES" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="Node" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Environment" positionX="133" positionY="153" width="128" height="30"/>
-        <element name="Metadata" positionX="-36" positionY="-18" width="128" height="30"/>
-        <element name="Node" positionX="-209" positionY="-168" width="128" height="30"/>
-        <element name="Service" positionX="-54" positionY="18" width="128" height="30"/>
+        <element name="Environment" positionX="133" positionY="153" width="128" height="90"/>
+        <element name="Metadata" positionX="-36" positionY="-18" width="128" height="75"/>
+        <element name="Node" positionX="-209" positionY="-168" width="128" height="105"/>
+        <element name="Service" positionX="-54" positionY="18" width="128" height="90"/>
     </elements>
 </model>
