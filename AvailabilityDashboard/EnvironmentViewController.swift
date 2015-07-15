@@ -119,6 +119,8 @@ class EnvironmentViewController: BaseController {
             tableView.backgroundView = emptyTableMessage
             tableView.separatorStyle = UITableViewCellSeparatorStyle.None
             return 0
+        } else {
+            tableView.backgroundView = nil
         }
         tableView.separatorStyle = UITableViewCellSeparatorStyle.SingleLine
         return 1
