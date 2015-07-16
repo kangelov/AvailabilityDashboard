@@ -25,18 +25,19 @@ class BaseController: UITableViewController, AvailabilityManagerDelegate {
     }
     
     func refreshSuccess(manager: AvailabilityManager) {
-        if let envList = manager.getEnvironmentList() {
-            updateViewForRefresh(path, envList: envList)
-            self.tableView.reloadData()
-            self.tableView.setNeedsDisplay()
-        }
-
         if let lastUpdate = manager.getLastUpdateTime() {
             self.lastUpdate = lastUpdate
         }
         if let lastFetchDate = manager.getLastFetchTime() {
             self.lastFetchDate = lastFetchDate
         }
+        
+        if let envList = manager.getEnvironmentList() {
+            updateViewForRefresh(path, envList: envList)
+            self.tableView.reloadData()
+            self.tableView.setNeedsDisplay()
+        }
+
         self.refreshControl?.endRefreshing()
         updateStatusBarButton()
     }

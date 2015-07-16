@@ -21,6 +21,9 @@ class NodesViewController: BaseController {
     
     override func updateViewForRefresh(path: [BaseController], envList: [Environment]) {
         if let serviceController = path[1] as? ServicesViewController {
+            serviceController.lastFetchDate = self.lastFetchDate
+            serviceController.lastUpdate = self.lastUpdate
+            serviceController.updateStatusBarButton()
             serviceController.updateViewForRefresh(path, envList: envList)
             if let selectedService = serviceController.selectedService {
                 serviceController.handleSelection(self)

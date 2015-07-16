@@ -21,6 +21,9 @@ class ServicesViewController: BaseController {
     override func updateViewForRefresh(path: [BaseController], envList: [Environment]) {
         println("ServicesViewController.updateViewForRefresh")
         if let envController = path[0] as? EnvironmentViewController {
+            envController.lastFetchDate = self.lastFetchDate
+            envController.lastUpdate = self.lastUpdate
+            envController.updateStatusBarButton()
             envController.updateViewForRefresh(path, envList: envList)
             if let selectedEnv = envController.selectedEnvironment {
                 envController.handleSelection(self)
