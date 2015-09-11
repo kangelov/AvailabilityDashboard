@@ -13,7 +13,11 @@ class ServicesViewController: BaseController {
     
     var nodesViewController: NodesViewController? = nil
     
-    var services: [Service] = []
+    var services: [Service] = [] {
+        didSet {
+            services.sort({ (a: Service, b: Service) -> Bool in return a.name > b.name })
+        }
+    }
     
     var selectedService: Service?
     var selectedServiceName: String?

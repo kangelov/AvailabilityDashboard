@@ -13,7 +13,11 @@ class EnvironmentViewController: BaseController {
     
     var serviceViewController: ServicesViewController? = nil
     
-    var environments: [Environment] = []
+    var environments: [Environment] = [] {
+        didSet {
+            environments.sort({ (a: Environment, b: Environment) -> Bool in return a.name > b.name })
+        }
+    }
     
     var didShowSplash : Bool = false
     

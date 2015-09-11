@@ -17,7 +17,11 @@ class NodesViewController: BaseController {
     var selectedNode: Node?
     var selectedNodeName: String?
     
-    var nodes: [Node] = []
+    var nodes: [Node] = [] {
+        didSet {
+            nodes.sort({ (a: Node, b: Node) -> Bool in return a.name > b.name })
+        }
+    }
     
     override func updateViewForRefresh(path: [BaseController], envList: [Environment]) {
         if let serviceController = path[1] as? ServicesViewController {
