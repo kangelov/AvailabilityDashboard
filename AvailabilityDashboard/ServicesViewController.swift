@@ -75,6 +75,8 @@ class ServicesViewController: BaseController {
             destController.service = self.selectedService
             for n in self.selectedService!.nodes {
                 destController.nodes.append(n as! Node);
+                destController.tableView.reloadData()
+                destController.tableView.setNeedsDisplay()
             }
             super.populateForSegue(controller)
         }

@@ -25,6 +25,8 @@ class EnvironmentViewController: BaseController {
     override func updateViewForRefresh(path: [BaseController], envList: [Environment]) {
         println("EnvironmentViewController.updateViewForRefresh")
         self.environments = envList
+        self.tableView.reloadData()
+        self.tableView.setNeedsDisplay()
         if let selectedEnv = selectedEnvironment {
             self.selectedEnvironment = nil
             for env in envList {
@@ -52,8 +54,6 @@ class EnvironmentViewController: BaseController {
                 if let envList = availabilityManager.getEnvironmentList() {
                     if envList.count > 0 {
                         updateViewForRefresh(path, envList: envList)
-                        self.tableView.reloadData()
-                        self.tableView.setNeedsDisplay()
                     }
                     
                     if let lastUpdate = availabilityManager.getLastUpdateTime() {
@@ -100,6 +100,8 @@ class EnvironmentViewController: BaseController {
             destController.services = []
             for s in self.selectedEnvironment!.services {
                 destController.services.append(s as! Service);
+                destController.tableView.reloadData()
+                destController.tableView.setNeedsDisplay()
             }
             super.populateForSegue(destController)
         }

@@ -34,8 +34,6 @@ class BaseController: UITableViewController, AvailabilityManagerDelegate {
         
         if let envList = manager.getEnvironmentList() {
             updateViewForRefresh(path, envList: envList)
-            self.tableView.reloadData()
-            self.tableView.setNeedsDisplay()
         }
 
         self.refreshControl?.endRefreshing()
@@ -49,8 +47,6 @@ class BaseController: UITableViewController, AvailabilityManagerDelegate {
         if let envList = manager.getEnvironmentList() {
             if envList.count > 0 {
                 updateViewForRefresh(path, envList: envList)
-                self.tableView.reloadData()
-                self.tableView.setNeedsDisplay()
             }
 
             if let lastUpdate = manager.getLastUpdateTime() {
