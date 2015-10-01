@@ -19,15 +19,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
     var deviceToken : NSData? = nil
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-        println("Starting app...")
-        UIApplication.sharedApplication().registerUserNotificationSettings(UIUserNotificationSettings(forTypes: UIUserNotificationType.Alert | UIUserNotificationType.Sound, categories: nil))
+        print("Starting app...")
+        UIApplication.sharedApplication().registerUserNotificationSettings(UIUserNotificationSettings(forTypes: [.Alert,.Sound], categories: nil))
         UIApplication.sharedApplication().registerForRemoteNotifications()
         
         // Override point for customization after application launch.
         self.availabilityManager = AvailabilityManager(managedObjectContext: self.managedObjectContext!, saveContext: { () -> Void in self.saveContext() })
         let splitViewController = self.window!.rootViewController as! UISplitViewController
         let navigationController = splitViewController.viewControllers[splitViewController.viewControllers.count-1] as! UINavigationController
-        navigationController.topViewController.navigationItem.leftBarButtonItem = splitViewController.displayModeButtonItem()
+        navigationController.topViewController!.navigationItem.leftBarButtonItem = splitViewController.displayModeButtonItem()
         splitViewController.delegate = self
         
         return true
@@ -57,7 +57,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
 
     // MARK: - Split view
 
-    func splitViewController(splitViewController: UISplitViewController, collapseSecondaryViewController secondaryViewController:UIViewController!, ontoPrimaryViewController primaryViewController:UIViewController!) -> Bool {
+    func splitViewController(splitViewController: UISplitViewController, collapseSecondaryViewController secondaryViewController:UIViewController, ontoPrimaryViewController primaryViewController:UIViewController) -> Bool {
         if let secondaryAsNavController = secondaryViewController as? UINavigationController {
             if let topAsDetailController = secondaryAsNavController.topViewController as? DetailViewController {
                 if topAsDetailController.node == nil || topAsDetailController.service == nil {
@@ -75,7 +75,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
     lazy var applicationDocumentsDirectory: NSURL = {
         // The directory the application uses to store the Core Data store file. This code uses a directory named "com.qualicom.TestCoreData" in the application's documents Application Support directory.
         let urls = NSFileManager.defaultManager().URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask)
-        return urls[urls.count-1] as! NSURL
+        return urls[urls.count-1] 
         }()
     
     lazy var managedObjectModel: NSManagedObjectModel = {
@@ -91,22 +91,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
         let url = self.applicationDocumentsDirectory.URLByAppendingPathComponent("AvailabilityDashboardModel.sqlite")
         var error: NSError? = nil
         var failureReason = "There was an error creating or loading the application's saved data."
-        if coordinator!.addPersistentStoreWithType(NSSQLiteStoreType, configuration: nil, URL: url, options: nil, error: &error) == nil {
+        do {
+            try coordinator!.addPersistentStoreWithType(NSSQLiteStoreType, configuration: nil, URL: url, options: nil)
+        } catch let coordinatorError {
             coordinator = nil
             // Report any error we got.
             var dict = [String: AnyObject]()
             dict[NSLocalizedDescriptionKey] = "Failed to initialize the application's saved data"
             dict[NSLocalizedFailureReasonErrorKey] = failureReason
-            dict[NSUnderlyingErrorKey] = error
+            dict[NSUnderlyingErrorKey] = coordinatorError as? AnyObject
             error = NSError(domain: "YOUR_ERROR_DOMAIN", code: 9999, userInfo: dict)
             // Replace this with code to handle the error appropriately.
             // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
             NSLog("Unresolved error \(error), \(error!.userInfo)")
             abort()
         }
-        
         return coordinator
-        }()
+    }()
     
     lazy var managedObjectContext: NSManagedObjectContext? = {
         // Returns the managed object context for the application (which is already bound to the persistent store coordinator for the application.) This property is optional since there are legitimate error conditions that could cause the creation of the context to fail.
@@ -123,12 +124,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
     
     func saveContext () {
         if let moc = self.managedObjectContext {
-            var error: NSError? = nil
-            if moc.hasChanges && !moc.save(&error) {
-                // Replace this implementation with code to handle the error appropriately.
-                // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-                NSLog("Unresolved error \(error), \(error!.userInfo)")
-                abort()
+            if moc.hasChanges {
+                do {
+                    try moc.save()
+                } catch let error {
+                    // Replace this implementation with code to handle the error appropriately.
+                    // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
+                    NSLog("Unresolved error \(error)")
+                    abort()
+                }
             }
         }
     }
@@ -139,7 +143,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
     
     func application(application: UIApplication, performFetchWithCompletionHandler completionHandler: (UIBackgroundFetchResult) -> Void) {
         //Do stuff
-        println("Background fetch started.")
+        print("Background fetch started.")
         self.completionHandler = completionHandler
         self.availabilityManager?.refreshAvailability(self, deviceToken: deviceToken)
     }
@@ -149,8 +153,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
     }
     
     func refreshSuccess(manager: AvailabilityManager) {
-        let splitViewController = self.window!.rootViewController as! UISplitViewController
-        
         let alarm = UILocalNotification()
         alarm.alertBody = "New statuses received!"
         alarm.alertAction = "Launch application"
@@ -159,22 +161,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
         
         self.completionHandler?(UIBackgroundFetchResult.NewData)
         self.completionHandler = nil
-        println("Background fetch ended with success.")
+        print("Background fetch ended with success.")
     }
     
-    func refreshError(manager: AvailabilityManager, error: NSError?) {
+    func refreshError(manager: AvailabilityManager, error: ErrorType) {
         self.completionHandler?(UIBackgroundFetchResult.Failed)
         self.completionHandler = nil
-        println("Background fetch ended with an error.")
+        print("Background fetch ended with an error.")
     }
     
     func application(application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: NSData) {
-        println("My device token is \(deviceToken)")
+        print("My device token is \(deviceToken)")
         self.deviceToken = deviceToken
     }
     
     func application(application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: NSError) {
-        println("Failed to get a device token with error \(error)")
+        print("Failed to get a device token with error \(error)")
     }
     
 }

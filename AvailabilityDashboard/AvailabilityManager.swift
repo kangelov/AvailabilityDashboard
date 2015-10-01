@@ -26,7 +26,7 @@ class AvailabilityManager {
     
     func refreshAvailability(delegate: AvailabilityManagerDelegate?, deviceToken: NSData?) {
         let defaults = NSUserDefaults.standardUserDefaults()
-        var url = defaults.stringForKey("url") as String!
+        let url = defaults.stringForKey("url") as String!
 //        if (deviceToken != nil) {
 //            url = url + "?token=\(deviceToken!)"
 //        }
@@ -39,46 +39,46 @@ class AvailabilityManager {
             if (user != nil && !user.isEmpty && pass != nil && !pass.isEmpty) {
                 request = request.authenticate(user: user, password: pass)
             }
-            request.responseJSON { (req, res, json, error) in
-                    if(error != nil) {
-                        NSLog("Error: \(error)")
-                        NSLog("REQUEST: \(req)")
-                        NSLog("RESPONSE: \(res)")
-                        delegate?.refreshError(self, error: error)
+            request.responseJSON { request, response, result in
+                    if(result.error != nil) {
+                        NSLog("Error: \(result.error)")
+                        NSLog("REQUEST: \(request)")
+                        NSLog("RESPONSE: \(response)")
+                        delegate?.refreshError(self, error: result.error!)
                     }
                     else {
                         //NSLog("Success: \(json)")
-                        self.updateCoreData(JSON(json!))
+                        self.updateCoreData(JSON(result.value!))
                         delegate?.refreshSuccess(self)
                     }
             }
         } else {
-            var error = NSError(domain: "Invalid source URL. Please go into Settings and configure a valid URL.", code: -1, userInfo: nil)
+            let error = NSError(domain: "Invalid source URL. Please go into Settings and configure a valid URL.", code: -1, userInfo: nil)
             delegate?.refreshError(self, error: error);
         }
     }
     
     private func updateCoreData(json: JSON) {
-        for (key: String, subJSON: JSON) in json {
+        for (key, subJSON) in json {
             if (key == "environments") {
                 //Clear stale environments
                 let request = NSFetchRequest(entityName: "Environment")
-                if let storedEnvironments = self.managedObjectContext.executeFetchRequest(request, error: nil) as? [Environment] {
+                if let storedEnvironments = try! self.managedObjectContext.executeFetchRequest(request) as? [Environment] {
                     for env in storedEnvironments {
                         self.managedObjectContext.deleteObject(env)
                     }
                 }
                 //Clear stale metadata
                 let metadataRequest = NSFetchRequest(entityName: "Metadata")
-                if let storedMetadata = self.managedObjectContext.executeFetchRequest(metadataRequest, error: nil) as? [Metadata] {
+                if let storedMetadata = try! self.managedObjectContext.executeFetchRequest(metadataRequest) as? [Metadata] {
                     for m in storedMetadata {
                         self.managedObjectContext.deleteObject(m)
                     }
                 }
                 //Need something to clear CoreStorage
-                for(env: String, envJSON: JSON) in subJSON {
+                for(_, envJSON) in subJSON {
                     let newenv = NSEntityDescription.insertNewObjectForEntityForName("Environment", inManagedObjectContext: self.managedObjectContext) as! Environment
-                    println(envJSON["name"].stringValue)
+                    print(envJSON["name"].stringValue)
                     newenv.name = envJSON["name"].stringValue
                     newenv.status = envJSON["status"].stringValue
                     newenv.services = NSOrderedSet(array: getServiceList(envJSON))
@@ -94,7 +94,7 @@ class AvailabilityManager {
     func getEnvironmentList() -> [Environment]? {
         let request = NSFetchRequest(entityName: "Environment")
         request.sortDescriptors = [NSSortDescriptor(key: "name", ascending: true)]
-        if let storedEnvironments = self.managedObjectContext.executeFetchRequest(request, error: nil) as? [Environment] {
+        if let storedEnvironments = try! self.managedObjectContext.executeFetchRequest(request) as? [Environment] {
             return storedEnvironments
         }
         return nil
@@ -102,7 +102,7 @@ class AvailabilityManager {
     
     func getLastUpdateTime() -> NSDate? {
         let request = NSFetchRequest(entityName: "Metadata")
-        if let storedMetadata = self.managedObjectContext.executeFetchRequest(request, error: nil) as? [Metadata] {
+        if let storedMetadata = try! self.managedObjectContext.executeFetchRequest(request) as? [Metadata] {
             if storedMetadata.count == 1 {
                 return storedMetadata[0].lastUpdateTime
             }
@@ -112,7 +112,7 @@ class AvailabilityManager {
 
     func getLastFetchTime() -> NSDate? {
         let request = NSFetchRequest(entityName: "Metadata")
-        if let storedMetadata = self.managedObjectContext.executeFetchRequest(request, error: nil) as? [Metadata] {
+        if let storedMetadata = try! self.managedObjectContext.executeFetchRequest(request) as? [Metadata] {
             if storedMetadata.count == 1 {
                 return storedMetadata[0].lastFetchTime
             }
@@ -122,7 +122,7 @@ class AvailabilityManager {
     
     private func getServiceList(envJSON: JSON) -> [Service] {
         var serviceList : [Service] = []
-        for (serv: String, servJSON: JSON) in envJSON["services"] {
+        for (_, servJSON) in envJSON["services"] {
             let newserv = NSEntityDescription.insertNewObjectForEntityForName("Service", inManagedObjectContext: self.managedObjectContext) as! Service
             newserv.name = servJSON["name"].stringValue
             newserv.status = servJSON["status"].stringValue
@@ -134,7 +134,7 @@ class AvailabilityManager {
     
     private func getNodeList(servJSON: JSON) -> [Node] {
         var nodeList : [Node] = []
-        for (node: String, nodeJSON: JSON) in servJSON["nodes"] {
+        for (_, nodeJSON) in servJSON["nodes"] {
             let newnode = NSEntityDescription.insertNewObjectForEntityForName("Node", inManagedObjectContext: self.managedObjectContext) as! Node
             newnode.name = nodeJSON["name"].stringValue
             newnode.status = nodeJSON["status"].stringValue
@@ -146,7 +146,7 @@ class AvailabilityManager {
     }
     
     private func getLastUpdateDate(json: JSON) -> NSDate? {
-        for (key: String, subJSON: JSON) in json {
+        for (key, subJSON) in json {
             if key == "updateTime" {
                 return NSDate(timeIntervalSince1970: subJSON.doubleValue / 1000)
             }
@@ -160,6 +160,6 @@ protocol AvailabilityManagerDelegate {
     
     func refreshSuccess(manager: AvailabilityManager)
     
-    func refreshError(manager: AvailabilityManager, error: NSError?)
+    func refreshError(manager: AvailabilityManager, error: ErrorType)
 
 }

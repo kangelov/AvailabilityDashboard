@@ -40,8 +40,8 @@ class BaseController: UITableViewController, AvailabilityManagerDelegate {
         updateStatusBarButton()
     }
     
-    func refreshError(manager: AvailabilityManager, error: NSError?) {
-        var alert: UIAlertView = UIAlertView(title: "Error Fetching Availability Data", message: error?.localizedDescription, delegate: nil, cancelButtonTitle: "Dismiss")
+    func refreshError(manager: AvailabilityManager, error: ErrorType) {
+        let alert: UIAlertView = UIAlertView(title: "Error Fetching Availability Data", message: error as? String, delegate: nil, cancelButtonTitle: "Dismiss")
         alert.show()
 
         if let envList = manager.getEnvironmentList() {

@@ -15,7 +15,7 @@ class EnvironmentViewController: BaseController {
     
     var environments: [Environment] = [] {
         didSet {
-            environments.sort({ (a: Environment, b: Environment) -> Bool in return a.name > b.name })
+            environments.sortInPlace({ (a: Environment, b: Environment) -> Bool in return a.name < b.name })
         }
     }
     
@@ -27,28 +27,26 @@ class EnvironmentViewController: BaseController {
     var selectedEnvironment: Environment?
     
     override func updateViewForRefresh(path: [BaseController], envList: [Environment]) {
-        println("EnvironmentViewController.updateViewForRefresh")
+        print("EnvironmentViewController.updateViewForRefresh")
         self.environments = envList
         self.tableView.reloadData()
         self.tableView.setNeedsDisplay()
-        if let selectedEnv = selectedEnvironment {
-            self.selectedEnvironment = nil
-            for env in envList {
-                if env.name == selectedEnvironmentName {
-                    self.selectedEnvironment = env
-                }
+        self.selectedEnvironment = nil
+        for env in envList {
+            if env.name == selectedEnvironmentName {
+                self.selectedEnvironment = env
             }
-            if self.selectedEnvironment == nil {
-                self.selectedEnvironmentName = nil
-                var alert: UIAlertView = UIAlertView(title: "Cannot refresh environments.", message: "Selected environment is no longer available.", delegate: nil, cancelButtonTitle: "Dismiss")
-                alert.show()
-            }
+        }
+        if self.selectedEnvironment == nil && self.selectedEnvironmentName != nil {
+            self.selectedEnvironmentName = nil
+            let alert: UIAlertView = UIAlertView(title: "Cannot refresh environments.", message: "Selected environment is no longer available.", delegate: nil, cancelButtonTitle: "Dismiss")
+            alert.show()
         }
     }
 
     
     override func viewDidLoad() {
-        println("EnvironmentViewController.viewDidLoad")
+        print("EnvironmentViewController.viewDidLoad")
         
         super.viewDidLoad()
         
@@ -78,8 +76,7 @@ class EnvironmentViewController: BaseController {
         self.selectedEnvironmentName = nil
         
         if (!didShowSplash) {
-            let mainStoryboard = UIStoryboard(name: "Main", bundle: nil)
-            let splash = storyboard?.instantiateViewControllerWithIdentifier("Splash") as! UIViewController
+            let splash = storyboard!.instantiateViewControllerWithIdentifier("Splash") as UIViewController
             self.presentViewController(splash, animated: false, completion: nil)
             didShowSplash = true
         }
@@ -89,7 +86,7 @@ class EnvironmentViewController: BaseController {
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "showServices" {
-            if let indexPath = self.tableView.indexPathForSelectedRow() {
+            if let indexPath = self.tableView.indexPathForSelectedRow {
                 let object = environments[indexPath.row] as Environment
                 let controller = segue.destinationViewController as! ServicesViewController
                 self.selectedEnvironment = object
@@ -101,13 +98,13 @@ class EnvironmentViewController: BaseController {
     
     override func handleSelection(controller: BaseController) {
         if let destController = controller as? ServicesViewController {
+            super.populateForSegue(destController)
             destController.services = []
             for s in self.selectedEnvironment!.services {
                 destController.services.append(s as! Service);
                 destController.tableView.reloadData()
                 destController.tableView.setNeedsDisplay()
             }
-            super.populateForSegue(destController)
         }
     }
     
@@ -145,13 +142,13 @@ class EnvironmentViewController: BaseController {
             let env = environments[indexPath.row] as Environment
             switch env.status {
             case "WRONG_VERSION":
-                cell = tableView.dequeueReusableCellWithIdentifier("WrongEnvironmentItem", forIndexPath: indexPath) as! UITableViewCell
+                cell = tableView.dequeueReusableCellWithIdentifier("WrongEnvironmentItem", forIndexPath: indexPath)
             case "OK":
-                cell = tableView.dequeueReusableCellWithIdentifier("OKEnvironmentItem", forIndexPath: indexPath) as! UITableViewCell
+                cell = tableView.dequeueReusableCellWithIdentifier("OKEnvironmentItem", forIndexPath: indexPath)
             case "FAILED":
-                cell = tableView.dequeueReusableCellWithIdentifier("FailedEnvironmentItem", forIndexPath: indexPath) as! UITableViewCell
+                cell = tableView.dequeueReusableCellWithIdentifier("FailedEnvironmentItem", forIndexPath: indexPath)
             default:
-                cell = tableView.dequeueReusableCellWithIdentifier("UnknownEnvironmentItem", forIndexPath: indexPath) as! UITableViewCell
+                cell = tableView.dequeueReusableCellWithIdentifier("UnknownEnvironmentItem", forIndexPath: indexPath)
             }
             cell.textLabel!.text = env.name
             //        cell.detailTextLabel!.text = env.status

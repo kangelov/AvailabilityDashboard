@@ -11,7 +11,7 @@ import UIKit
 class SplashViewController : UIViewController {
     
     override func viewDidLoad() {
-        println("I am in splash!")
+        print("I am in splash!")
     }
     
     override func viewDidAppear(animated: Bool) {

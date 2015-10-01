@@ -19,7 +19,7 @@ class NodesViewController: BaseController {
     
     var nodes: [Node] = [] {
         didSet {
-            nodes.sort({ (a: Node, b: Node) -> Bool in return a.name > b.name })
+            nodes.sortInPlace({ (a: Node, b: Node) -> Bool in return a.name > b.name })
         }
     }
     
@@ -31,18 +31,16 @@ class NodesViewController: BaseController {
             serviceController.updateViewForRefresh(path, envList: envList)
             if let selectedService = serviceController.selectedService {
                 serviceController.handleSelection(self)
-                if let selectedNode = self.selectedNode {
-                    self.selectedNode = nil
-                    for n in selectedService.nodes {
-                        if n.name == selectedNodeName {
-                            self.selectedNode = n as! Node
-                        }
+                self.selectedNode = nil
+                for n in selectedService.nodes {
+                    if n.name == selectedNodeName {
+                        self.selectedNode = n as? Node
                     }
-                    if self.selectedNode == nil {
-                        self.selectedNodeName = nil
-                        var alert: UIAlertView = UIAlertView(title: "Cannot refresh node.", message: "Selected node is no longer available.", delegate: nil, cancelButtonTitle: "Dismiss")
-                        alert.show()
-                    }
+                }
+                if self.selectedNode == nil && self.selectedNodeName != nil {
+                    self.selectedNodeName = nil
+                    let alert: UIAlertView = UIAlertView(title: "Cannot refresh node.", message: "Selected node is no longer available.", delegate: nil, cancelButtonTitle: "Dismiss")
+                    alert.show()
                 }
             }
         }
@@ -62,7 +60,7 @@ class NodesViewController: BaseController {
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "showDetail" {
-            if let indexPath = self.tableView.indexPathForSelectedRow() {
+            if let indexPath = self.tableView.indexPathForSelectedRow {
                 let object = nodes[indexPath.row] as Node
                 let controller = (segue.destinationViewController as! UINavigationController).topViewController as! DetailViewController
                 self.selectedNodeName = object.name
@@ -97,13 +95,13 @@ class NodesViewController: BaseController {
         var cell: UITableViewCell
         switch node.status {
         case "WRONG_VERSION":
-            cell = tableView.dequeueReusableCellWithIdentifier("WrongNodeItem", forIndexPath: indexPath) as! UITableViewCell
+            cell = tableView.dequeueReusableCellWithIdentifier("WrongNodeItem", forIndexPath: indexPath)
         case "OK":
-            cell = tableView.dequeueReusableCellWithIdentifier("OKNodeItem", forIndexPath: indexPath) as! UITableViewCell
+            cell = tableView.dequeueReusableCellWithIdentifier("OKNodeItem", forIndexPath: indexPath)
         case "FAILED":
-            cell = tableView.dequeueReusableCellWithIdentifier("FailedNodeItem", forIndexPath: indexPath) as! UITableViewCell
+            cell = tableView.dequeueReusableCellWithIdentifier("FailedNodeItem", forIndexPath: indexPath)
         default:
-            cell = tableView.dequeueReusableCellWithIdentifier("UnknownNodeItem", forIndexPath: indexPath) as! UITableViewCell
+            cell = tableView.dequeueReusableCellWithIdentifier("UnknownNodeItem", forIndexPath: indexPath)
         }
         
         cell.textLabel!.text = node.name
