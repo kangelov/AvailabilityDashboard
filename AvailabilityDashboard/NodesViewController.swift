@@ -41,6 +41,9 @@ class NodesViewController: BaseController {
                     self.selectedNodeName = nil
                     let alert: UIAlertView = UIAlertView(title: "Cannot refresh node.", message: "Selected node is no longer available.", delegate: nil, cancelButtonTitle: "Dismiss")
                     alert.show()
+                    if let envController = path[0] as? EnvironmentViewController {
+                        self.navigationController?.popToViewController(envController, animated: true)
+                    }
                 }
             }
         }

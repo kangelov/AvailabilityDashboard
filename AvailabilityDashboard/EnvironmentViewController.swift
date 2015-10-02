@@ -41,6 +41,7 @@ class EnvironmentViewController: BaseController {
             self.selectedEnvironmentName = nil
             let alert: UIAlertView = UIAlertView(title: "Cannot refresh environments.", message: "Selected environment is no longer available.", delegate: nil, cancelButtonTitle: "Dismiss")
             alert.show()
+            self.navigationController?.popToViewController(self, animated: true)
         }
     }
 

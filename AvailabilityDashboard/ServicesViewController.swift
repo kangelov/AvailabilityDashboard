@@ -41,6 +41,7 @@ class ServicesViewController: BaseController {
                     self.selectedServiceName = nil
                     let alert: UIAlertView = UIAlertView(title: "Cannot refresh services.", message: "Selected service is no longer available.", delegate: nil,cancelButtonTitle: "Dismiss")
                     alert.show()
+                    self.navigationController?.popToViewController(envController, animated: true)
                 }
             }
         }
